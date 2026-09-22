@@ -28,3 +28,7 @@ console.log("nombre de "+nombre);
 //
 nombre = 5;
 console.log("nombre de "+nombre);
+
+//
+nombre = true;
+console.log(nombre);
