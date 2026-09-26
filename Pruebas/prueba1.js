@@ -73,3 +73,5 @@
  * le pongo value en el js al campo texto 
  */
 document.getElementById("iti1").value="Hola";
+
+let b= hola;
