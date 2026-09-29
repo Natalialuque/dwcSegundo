@@ -72,6 +72,60 @@
 /**
  * le pongo value en el js al campo texto 
  */
-document.getElementById("iti1").value="Hola";
+//document.getElementById("iti1").value="Hola";
 
-let b= hola;
+//let b= hola;
+
+/**
+ * Switch
+ */
+        // switch(nota){
+        //     case 1: 
+        //     case 2:
+        //     case 3:
+        //         console.log("muy mal"); 
+        //         break;
+        //     case 4:
+        //     case 5: 
+        //     case 6:
+        //         console.log("mal"); 
+        //         break;
+        //     case 7: 
+        //     case 8:
+        //     case 9: 
+        //         console.log("bien"); 
+        //         break;
+        //     case 10:
+        //         console.log("muy bien"); 
+        //         break;
+        // }
+
+/**condiciones con ifff */
+const nota = Math.random()*10+1;
+        // console.log(nota);
+
+        // if(nota<=3 ){
+        //     console.log("muy mal");
+        // }
+        // else if(nota<=6){
+        //     console.log("mal")
+        // }
+        // else if(nota<=9){
+        //     console.log("bien");
+        // }
+        // else{
+        //     console.log("muy bien");
+        // }
+
+/**
+ * funcion que sume 
+ */
+
+
+function SUMA(a,b){
+     return a +b;
+}
+
+let resultado= SUMA(4,5);
+
+console.log(resultado);
