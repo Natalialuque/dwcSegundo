@@ -122,10 +122,42 @@ const nota = Math.random()*10+1;
  */
 
 
-function SUMA(a,b){
-     return a +b;
+// function SUMA(a,b){
+//      return a +b;
+// }
+
+// let resultado= SUMA(4,5);
+
+// console.log(resultado);
+
+
+/**
+ * 
+ */
+let n1 = document.getElementById("n1");
+let n2 = document.getElementById("n2");
+let resultadoSuma = document.getElementById("resultadoSuma");
+let botonSumar=document.getElementById("botonSumar");
+
+botonSumar.addEventListener("click",doSUma);
+
+function doSUma(dato_1,dato_2){
+    //para poder colocar un dato u otro, teniendo el primero preferencia 
+    let a = dato_1 || parseFloat(n1.value);
+    let b = dato_2 || parseFloat(n2.value);
+
+    let result = 0;
+
+    if((typeof a =="number") && (typeof b=="number")){
+        result = a+b;
+        resultadoSuma.innerHTML=result;
+        n1.value="0";
+        n2.value="0";
+    }else{
+                resultadoSuma.innerHTML="valores no validos para la suma";
+
+    }
+
+
+
 }
-
-let resultado= SUMA(4,5);
-
-console.log(resultado);
