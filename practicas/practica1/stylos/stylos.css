@@ -1,19 +1,22 @@
+/* Estilos generales */
 body {
 font-family: Arial, Helvetica, sans-serif;
 text-align: center;
 margin-top: 50px;
 }
 
-
+/* Estilos del titulo */
 #titulo{
 color: rgb(10, 10, 98);
 }
 
+/* Estilos boton */
 button {
 padding: 10px;
 margin: 5px;
 }
 
+/* Estilos del resultado */
 #resultado {
 font-size: 20px;
 color: rgb(156, 240, 156);
