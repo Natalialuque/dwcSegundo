@@ -154,10 +154,9 @@ function doSUma(dato_1,dato_2){
         n1.value="0";
         n2.value="0";
     }else{
-                resultadoSuma.innerHTML="valores no validos para la suma";
+        resultadoSuma.innerHTML="valores no validos para la suma";
 
     }
-
-
-
 }
+
+
