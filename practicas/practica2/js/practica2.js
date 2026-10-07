@@ -34,6 +34,7 @@ function bidimensional(){
         //añadimos al array todos los valores 
         array.push(nombre.value);
         array.push(apellido.value);
+        array.push(curso.value);
         array.push(nota1.value);
         array.push(nota2.value);
         array.push(notaFinal.value);
@@ -70,3 +71,72 @@ function xor(){
         ejer2.innerHTML = "0";
     }
 }
+
+
+//EJER 3--> INTRODUCIMOS UN CANTIDAD EN € Y TENEMOS QUE PASARLA A YENES Y DOLARES 
+let euro = document.getElementById("euro");
+let boton3 = document.getElementById("boton3");
+let ejer3 = document.getElementById("ejer3");
+
+boton3.addEventListener("click",conversion);
+
+function conversion(){
+
+    if(isNaN(euro.value)){
+        ejer3.innerHTML="EL VALOR INTRODUCIDO DEBE SER UN NUMERO"
+    }else{
+        let dolar = Number(euro.value) * 1.12;
+        let yenes = Number(euro.value) * 178;
+
+        ejer3.innerHTML= euro.value +" son :"+dolar+"$ y "+yenes+" ¥";
+
+    }
+}
+
+
+//EJER 4--> SACAR EL AREA Y EL PERIMETRO DE UNA CIRCUNFERENCIA 
+let radio = document.getElementById("radio");
+let boton4 = document.getElementById("boton4");
+let ejer4 = document.getElementById("ejer4");
+
+boton4.addEventListener("click",areaPerimetro);
+
+function areaPerimetro(){
+
+    let area = 2 * Math.PI * Math.pow(radio.value,2);
+
+    let perimetro = 2 * Math.PI * radio.value;
+
+    ejer4.innerHTML= "El radio de la circunferencia es de :"+radio.value+", su area:"+area+" y su perimetro:"+perimetro;
+
+}
+
+//EJER 5 --> 
+
+//EJER 6 --> 
+
+//EJER 7 --> 
+
+
+//EJER 8 --> 
+
+
+//EJER 9 --> 
+
+//EJER 10 --> 
+
+//EJER 11 --> 
+
+//EJER 12 --> 
+
+//EJER 13 --> 
+
+
+//EJER 14 --> 
+
+//EJER 15 --> 
+//EJER 16 --> 
+//EJER 17 --> 
+//EJER 18 -->
+//EJER 19 --> 
+//EJER 20 -->  
