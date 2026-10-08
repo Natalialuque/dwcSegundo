@@ -9,5 +9,90 @@
 </head>
 <body>
     <h1 id="h1"></h1>
+<br>
+    <h1 id="h21"></h1>
+
+ <form action="#" method="POST">
+        <h2>Formulario con Valores Prellenados</h2>
+
+        <!-- 1. Campo de texto -->
+        <div class="form-group">
+            <label for="nombre">1. Nombre completo:</label>
+            <input type="text" id="nombre" name="nombre" value="Carlos Pérez Gómez">
+        </div>
+
+        <!-- 2. Campo de correo electrónico -->
+        <div class="form-group">
+            <label for="email">2. Correo electrónico:</label>
+            <input type="email" id="email" name="email" value="carlos.perez@example.com">
+        </div>
+
+        <!-- 3. Campo de contraseña -->
+        <div class="form-group">
+            <label for="password">3. Contraseña:</label>
+            <input type="password" id="password" name="password" value="MiPasswordSegura123">
+        </div>
+
+        <!-- 4. Campo numérico -->
+        <div class="form-group">
+            <label for="edad">4. Edad:</label>
+            <input type="number" id="edad" name="edad" value="30">
+        </div>
+
+        <!-- 5. Campo de fecha -->
+        <div class="form-group">
+            <label for="fecha_nacimiento">5. Fecha de nacimiento:</label>
+            <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" value="1996-05-14">
+        </div>
+
+        <!-- 6. Campo de selección desplegable (Select) -->
+        <div class="form-group">
+            <label for="pais">6. País de residencia:</label>
+            <select id="pais" name="pais">
+                <option value="mx">México</option>
+                <option value="es" selected>España</option>
+                <option value="ar">Argentina</option>
+                <option value="co">Colombia</option>
+            </select>
+        </div>
+
+        <!-- 7. Botones de opción (Radio buttons) -->
+        <div class="form-group">
+            <label>7. Género:</label>
+            <div class="inline-group">
+                <label><input type="radio" name="genero" value="masculino" checked> Masculino</label>
+                <label><input type="radio" name="genero" value="femenino"> Femenino</label>
+                <label><input type="radio" name="genero" value="otro"> Otro</label>
+            </div>
+        </div>
+
+        <!-- 8. Casilla de verificación (Checkbox) -->
+        <div class="form-group">
+            <label class="inline-group">
+                <input type="checkbox" id="suscribirse" name="suscribirse" value="1" checked>
+                8. Suscribirse al boletín de noticias
+            </label>
+        </div>
+
+        <!-- 9. Selector de color -->
+        <div class="form-group">
+            <label for="color_favorito">9. Color favorito:</label>
+            <input type="color" id="color_favorito" name="color_favorito" value="#007BFF">
+        </div>
+
+        <!-- 10. Control deslizante (Range) -->
+        <div class="form-group">
+            <label for="nivel_experiencia">10. Nivel de experiencia (1 al 10):</label>
+            <input type="range" id="nivel_experiencia" name="nivel_experiencia" min="1" max="10" value="8">
+        </div>
+
+        <!-- 11. Área de texto (Textarea) -->
+        <div class="form-group">
+            <label for="biografia">11. Biografía corta:</label>
+            <textarea id="biografia" name="biografia">Apasionado del desarrollo web, la tecnología y el diseño de interfaces limpias y funcionales.</textarea>
+        </div>
+
+        <button type="submit">Enviar formulario</button>
+    </form>
 </body>
 </html>

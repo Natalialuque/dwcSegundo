@@ -111,15 +111,68 @@ function areaPerimetro(){
 
 }
 
-//EJER 5 --> 
+//EJER 5 --> SACAR LOS VALORES PARES DE ENTRE DOS NUMEROS
+let par1 = document.getElementById("par1");
+let par2 = document.getElementById("par2");
+let boton5 = document.getElementById("boton5");
+let ejer5 = document.getElementById("ejer5");
 
-//EJER 6 --> 
+boton5.addEventListener("click",pares);
+
+function pares (){
+    if(par1.value<-100 || par2.value > 5000){
+        ejer5.innerHTML="<p color=red>ERROR EL PRIMER VALOR DEBE SER MAYOR A -100 Y EL SEGUNDO MENOR A 5000</p>"
+    }else if(isNaN(par1.value) || isNaN(par2.value)){
+        ejer5.innerHTML="<p color=red>ERROR NO HAS INTRODUCIDO NUMEROS</p>"
+    }else{
+         let array=[];
+        for(let i = parseInt(par1.value);i<=parseInt(par2.value);i++){
+            if(i%2===0){
+                array.push(i);
+            }
+        }
+        ejer5.innerHTML=array.join(",");
+    }
+}
+
+//EJER 6 --> SACAR SUMA + RESTA + DIVISION + MULTIPLICACION + RESTO // RECORDAR QUE NO SE PUEDE DIVIDIR POR 0
+// let num1 = document.getElementById("num1").value;
+// let num2 = document.getElementById("num2").value;
+let boton6 = document.getElementById("boton6");
+let ejer6 = document.getElementById("ejer6");
+
+boton6.addEventListener("click",operaciones);
+
+function operaciones(){
+
+    let num1 = parseFloat(document.getElementById("num1").value);
+    let num2 = parseFloat(document.getElementById("num2").value);
+
+    let suma;
+    let resta;
+    let division;
+    let resto;
+    let multiplicacion;
+
+    suma = num1 + num2;
+    resta = num1 - num2;
+    multiplicacion = num1 * num2;
+
+    if(num2==0){
+        division = "no se puede dividir";
+        resto= "no se puede dividir";
+    }else{
+        division = num1/num2;
+        resto= num1%num2;
+    }
+    
+    ejer6.innerHTML="SUMA:"+suma+"<br>RESTA:"+resta+"<br>MULTIPLICACION:"+multiplicacion+"<br>DIVISION:"+division+"<br>RESTO:"+resto;
+
+}
 
 //EJER 7 --> 
 
-
 //EJER 8 --> 
-
 
 //EJER 9 --> 
 
@@ -131,12 +184,16 @@ function areaPerimetro(){
 
 //EJER 13 --> 
 
-
 //EJER 14 --> 
 
 //EJER 15 --> 
+
 //EJER 16 --> 
+
 //EJER 17 --> 
+
 //EJER 18 -->
+
 //EJER 19 --> 
+
 //EJER 20 -->  

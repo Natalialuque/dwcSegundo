@@ -41,14 +41,14 @@ Object.defineProperties(myAlumn3, {
 
 Object.defineProperty(myAlumn3, "age", {configurable: true, enumerable: true, writable:false, value:23});
 
-h11.innerHTML += "<hr>Nombre del alumno/a:" + myAlumn3.name + ". Edad: " + myAlumn3.age;
+h1.innerHTML += "<hr>Nombre del alumno/a:" + myAlumn3.name + ". Edad: " + myAlumn3.age;
 
 myAlumn3.age = 55;
 console.log("Nueva edad: " + myAlumn3.age);
 /**
  * FOR OF PARA DEVOLVER TODAS LAS PROPIEDADES DEL PRIMER OBJETO
  */
-let myAlums = new Array(myAlumn, myAlumn2, myAlumn3);
+//let myAlums = new Array(myAlum, myAlum2, myAlumn3);
 
 // for (const data of myAlums) {
 //     console.dir("Datos de alumnos: " + Object.entries(data))    
@@ -58,11 +58,25 @@ let myAlums = new Array(myAlumn, myAlumn2, myAlumn3);
 /**
  * Bucle para preguntar dentro del array de mis alumnos cada clave y su valor
  */
-let myAlumns = new Array(myAlumn, myAlumn2, myAlumn3);
+//let myAlumns = new Array(myAlumn, myAlumn2, myAlumn3);
 
-for (let data of myAlumns) {
-    let claves = Object.getOwnPropertyNames(data);
-    console.log (claves)
-    for (let i = 0; i < claves.length; i++)
-        console.log("Valor de la clave " + claves[i] + " es " + data[claves[i]]);
-}
+// for (let data of myAlumns) {
+//     let claves = Object.getOwnPropertyNames(data);
+//     console.log (claves)
+//     for (let i = 0; i < claves.length; i++)
+//         console.log("Valor de la clave " + claves[i] + " es " + data[claves[i]]);
+// }
+
+
+/**
+ * probando url 
+ */
+const url = "https://www.marca.com/tenis/2026/10/08/ferrero-desvela-batalla-perdida-alcaraz-descarta-entrenar-sinner-dicen-seria-etico.html";
+
+const h21 = document.getElementById("h21");
+
+h21.innerHTML = encodeURI(url) + "<hr>" + encodeURIComponent(url)
+
+eval("h21.innerHTML = 'Hola desde eval'");
+
+document.forms[].innerHTML
