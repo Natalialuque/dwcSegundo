@@ -170,15 +170,126 @@ function operaciones(){
 
 }
 
-//EJER 7 --> 
+//EJER 7 --> SACAR LA MEDIA ARTIRMETICA OBTENIENDO UNA CADENA DE STRING
+let boton7 = document.getElementById("boton7");
+let ejer7 = document.getElementById("ejer7");
 
-//EJER 8 --> 
+boton7.addEventListener("click",notas);
 
-//EJER 9 --> 
+function notas(){
+    //llamamos a las variables 
+    let nota11 = parseFloat(document.getElementById("nota11").value);
+    let nota22 = parseFloat(document.getElementById("nota22").value);
+    let nota33 = parseFloat(document.getElementById("nota33").value);
 
-//EJER 10 --> 
+    //sacamos la media aritmetica 
+    let media = (nota11+nota22+nota33)/3;
+    //console.log(media);
 
-//EJER 11 --> 
+    //Hacemos las comparaciones
+    if(media<5){
+        ejer7.innerHTML="suspenso";
+    }else if(media<7){
+        ejer7.innerHTML="bien";
+    }else if(media<=8.5){
+        ejer7.innerHTML="notable";
+    }else{
+        ejer7.innerHTML="sobresaliente";
+    }
+
+    //SWITCH
+    // switch (true) {
+    // case (media < 5):
+    //     ejer7.innerHTML = "suspenso";
+    //     break;
+
+    // case (media < 7):
+    //     ejer7.innerHTML = "bien";
+    //     break;
+
+    // case (media <= 8.5):
+    //     ejer7.innerHTML = "notable";
+    //     break;
+
+    // default:
+    //     ejer7.innerHTML = "sobresaliente";
+}
+  
+
+//EJER 8 --> PIRAMIDE DEL 1 AL 50 (1-22-333-4444-55555-666666...)
+let boton8 = document.getElementById("boton8");
+let ejer8 = document.getElementById("ejer8");
+
+boton8.addEventListener("click",piramide50);
+
+function piramide50(){
+
+    let resultado = "";
+
+    for (let i = 1; i <= 50; i++) {
+        for (let j = 1; j <= i; j++) {
+            resultado += i;
+        }
+        resultado += "<br>";
+    }
+    ejer8.innerHTML = resultado;
+}
+
+//EJER 9 --> PIRAMIDE DEL 1 AL 50 (1-12-123-12134-123456)
+let boton9 = document.getElementById("boton9");
+let ejer9 = document.getElementById("ejer9");
+
+boton9.addEventListener("click",piramide50_2);
+
+function piramide50_2(){
+    let resultado = "";
+
+    //Bucle anidado para sacar una piramide de numeros poner j hace que coja los numeros en orden
+    for (let i = 1; i <= 50; i++) {
+        for (let j = 1; j <= i; j++) {
+            resultado += j;
+        }
+        resultado += "<br>";
+    }
+    ejer9.innerHTML = resultado;
+}
+
+//EJER 10 --> FUNCION ARROW 
+let boton10 = document.getElementById("boton10");
+let ejer10 = document.getElementById("ejer10");
+
+
+boton10.onclick = ()=>{
+    let numArrow = document.getElementById("numArrow").value;
+
+    if(numArrow%2===0){
+        ejer10.innerHTML="El numero "+numArrow+" es par";
+    }else{
+        ejer10.innerHTML="El numero "+numArrow+" es impar";
+    }
+}
+
+//EJER 11 --> JUEGO DEL PUM QUE MODIFICA LOS MULTIS DE 7 Y LOS TERMINADO EN 7
+let boton11 = document.getElementById("boton11");
+let ejer11 = document.getElementById("ejer11");
+
+boton11.onclick=function(){
+
+    //para guardar el resultado
+    let resultado = "";
+    //recorremos bucle
+    for(let i =1;i<=100;i++){
+        //si es siete o multiplo ponemos PUM y saltamos 
+        if (i % 7 === 0 || i % 10 === 7) {
+            resultado+= "PUM\n"; 
+    }//si no mostramos resultado normal 
+    else {
+            resultado += i + ", ";
+        }
+    }
+
+    ejer11.innerHTML = resultado;
+}
 
 //EJER 12 --> 
 
