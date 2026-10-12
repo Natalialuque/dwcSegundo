@@ -291,11 +291,106 @@ boton11.onclick=function(){
     ejer11.innerHTML = resultado;
 }
 
-//EJER 12 --> 
+//EJER 12 --> APLICACION QUE GENERA 300 NUMEROS,PARTE FILA CADA 10, LOS MULTIPLOS DE 4 LOS MUESTRA MAS GRANDES Y EN VERDE, LOS DE 9 MAS GRANDES Y EN ROJOS
+let boton12 = document.getElementById("boton12");
+let ejer12 = document.getElementById("ejer12");
 
-//EJER 13 --> 
+boton12.onclick=function(){
 
-//EJER 14 --> 
+    for (let i = 1; i <= 300; i++) {
+
+    let span = document.createElement("span");
+    span.textContent = i + " ";
+
+    // Múltiplos de 4
+    if (i % 4 === 0) {
+        span.style.color = "green";
+        span.style.fontSize = "20px"; 
+    }
+
+    // Múltiplos de 9
+    if (i % 9 === 0) {
+        span.style.color = "red";
+        span.style.fontSize = "18px"; 
+    }
+
+    ejer12.appendChild(span);
+
+    // Salto de línea cada 10 números
+    if (i % 10 === 0) {
+        ejer12.appendChild(document.createElement("br"));
+    }
+}
+}
+
+//EJER 13 --> SUMA DE DOS DADOS GUARDADAS EN UN ARRAY REPETIDO 36000
+let boton13 = document.getElementById("boton13");
+let ejer13= document.getElementById("ejer13");
+
+boton13.onclick=function(){
+
+    //podriamos usar fill pero no lo hemos visto
+    let apariciones = [0,0,0,0,0,0,0,0,0,0,0,0,0];
+
+    for(let i=1;i<=36000;i++){
+    
+        //dados creados
+        let dado1 = Math.floor(Math.random()*6+1);
+        let dado2 = Math.floor(Math.random()*6+1);
+
+        //2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 POSIBLES RESULTADOS DE LA SUMA
+       let suma = dado1+dado2;
+
+        //metemos la suma en el array
+        apariciones[suma]++;
+
+    }
+
+    //bucle para recorrer los resultados de las sumas
+    for (let i = 2; i <= 12; i++) {
+
+        ejer13.innerHTML+= "la suma "+i+" ha aparecido "+apariciones[i]+" veces <br>";
+    }
+}
+
+
+//EJER 14 --> INTRODUCIMOS NUMEROS HASTA FINALIZAR
+let numero = document.getElementById("numeroInput");
+let botonAgregar = document.getElementById("agregar");
+let ejer14 = document.getElementById("ejer14");
+
+let numeros = []; //aray para guardar numeros
+
+botonAgregar.onclick = function () {
+    let valor = parseInt(numero.value);//valor del numero
+
+    if (valor === 0) { //si metemos 0 mostramos los resultado
+        mostrarResultados();
+        return;
+    }
+
+    numeros.push(valor);//vamos metiendo los numeros en el array
+    numero.value = "";
+    numero.focus();
+};
+
+//esta funcion saca los mayores/menores, los numeros ordenados, los numeros en general
+function mostrarResultados() {
+
+    let mayor = Math.max(...numeros);
+    let menor = Math.min(...numeros);
+
+    let ocurrencias = {};
+
+    for (let num of numeros) {
+        ocurrencias[num] = (ocurrencias[num] || 0) + 1;
+    }
+
+    ejer14.innerHTML = "Orden normal:"+numeros.join(", ")+"<br>"+
+        "Orden descendente:"+[...numeros].sort((a,b)=>b-a).join(", ")+"<br>"+
+        "Número mayor: "+mayor+ocurrencias[mayor] +"(veces)<br>"+
+        "Número menor: "+menor + ocurrencias[menor] +"(veces)";
+}
 
 //EJER 15 --> 
 
@@ -307,4 +402,4 @@ boton11.onclick=function(){
 
 //EJER 19 --> 
 
-//EJER 20 -->  
+//EJER 20 --
