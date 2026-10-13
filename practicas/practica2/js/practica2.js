@@ -419,7 +419,33 @@ boton15.onclick=function(){
 }
 
 
-//EJER 16 --> 
+//EJER 16 --> GENERAR UNA CONTRASEÑA DE X BYTES 
+let boton16 = document.getElementById("boton16");
+let ejercicio16 = document.getElementById("ejercicio16");
+let contraseña = document.getElementById("contraseña");
+
+boton16.onclick=function(){
+
+    let resultado="";
+
+    //verificamos 
+    if (isNaN(contraseña.value) || contraseña.value <= 0) {
+    alert("Por favor, introduce una longitud válida mayor que 0.");
+    return;
+    }
+
+    //caracteres de la generacion de contraseña
+    const caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+[]{}<>?/|";
+
+    //recorremos el bucle con la cantidad de caracteres
+    for (let i = 0; i < contraseña.value; i++) {
+        //generamos los aleatorios conforme a la cantidad de caracteres
+        const indice = Math.floor(Math.random() * caracteres.length);
+        resultado += caracteres[indice];
+  }
+
+  ejercicio16.innerHTML = resultado;
+}
 
 //EJER 17 --> 
 
