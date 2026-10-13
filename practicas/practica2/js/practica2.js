@@ -356,12 +356,12 @@ boton13.onclick=function(){
 
 //EJER 14 --> INTRODUCIMOS NUMEROS HASTA FINALIZAR
 let numero = document.getElementById("numeroInput");
-let botonAgregar = document.getElementById("agregar");
+let boton14 = document.getElementById("boton14");
 let ejer14 = document.getElementById("ejer14");
 
 let numeros = []; //aray para guardar numeros
 
-botonAgregar.onclick = function () {
+boton14.onclick = function () {
     let valor = parseInt(numero.value);//valor del numero
 
     if (valor === 0) { //si metemos 0 mostramos los resultado
@@ -392,7 +392,32 @@ function mostrarResultados() {
         "Número menor: "+menor + ocurrencias[menor] +"(veces)";
 }
 
-//EJER 15 --> 
+//EJER 15 --> INTRODUCIR UN ARRAY E INVENTIRLO
+let boton15 = document.getElementById("boton15");
+let ejer15_1 = document.getElementById("ejer15_1");
+let ejer15_2 = document.getElementById("ejer15_2");
+
+let arrayBase = [4,5,"hola",8.6, true, {marca: "Ford", matricula: "123456A"},9]; //guardamos el array con diferentes
+
+boton15.onclick=function(){
+    //este bucle muestra el array normal sin inversiones
+    for(let i = 0; i < arrayBase.length; i++){
+        if(typeof arrayBase[i] === "object"){
+        ejer15_1.innerHTML += "{marca:"+ arrayBase[i].marca + " matricula:  " + arrayBase[i].matricula + "} ";
+        }else{
+        ejer15_1.innerHTML += arrayBase[i] + ", ";
+        }
+    }
+    //este bucle lee el array al reves y lo muestra
+    for(let i=arrayBase.length-1; i>=0;i--){
+       if(typeof arrayBase[i] === "object"){
+        ejer15_2.innerHTML += "{marca:"+ arrayBase[i].marca + " matricula:  " + arrayBase[i].matricula + "} ";
+        }else{
+        ejer15_2.innerHTML += arrayBase[i] + ", ";
+        }
+    }
+}
+
 
 //EJER 16 --> 
 

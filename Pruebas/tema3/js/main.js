@@ -71,12 +71,67 @@ console.log("Nueva edad: " + myAlumn3.age);
 /**
  * probando url 
  */
-const url = "https://www.marca.com/tenis/2026/10/08/ferrero-desvela-batalla-perdida-alcaraz-descarta-entrenar-sinner-dicen-seria-etico.html";
+// const url = "https://www.marca.com/tenis/2026/10/08/ferrero-desvela-batalla-perdida-alcaraz-descarta-entrenar-sinner-dicen-seria-etico.html";
 
+// const h21 = document.getElementById("h21");
+
+// h21.innerHTML = encodeURI(url) + "<hr>" + encodeURIComponent(url)
+
+// eval("h21.innerHTML = 'Hola desde eval'");
+
+// document.forms[].innerHTML
+
+/**
+ * 
+ */
 const h21 = document.getElementById("h21");
+let myArray = new Array();
 
-h21.innerHTML = encodeURI(url) + "<hr>" + encodeURIComponent(url)
+myArray.push("Pepe");
+myArray.push(56);
+myArray.push(true);
+myArray.push("Ana");
+myArray.push("78.98");
+myArray.push(new Array(1,2,3));
+myArray.push({marca: "Ford", matricula: "123456A"});
+myArray.push(false);
+myArray.push(Math.PI);
 
-eval("h21.innerHTML = 'Hola desde eval'");
+// for (let index = 0; index < myArray.length; index++)
+//     //para verificar que sea un objeto, y tiene las propiedades marca y matricula
+//     if ((typeof myArray[index] == "object") && Object.hasOwn(myArray[index],"marca") && Object.hasOwn(myArray[index],"matricula")) {
+//         h21.textContent += "{Marca: " + myArray[index].marca + ", Matricula: " + myArray[index].matricula+"}";
+//     }else{
+//         if (index == (myArray.length - 1))
+//                 h21.textContent += myArray[index];
+//             else
+//                 h21.textContent += myArray[index] + " - ";
+//     }
+    
 
-document.forms[].innerHTML
+
+/**
+ *  filter() para quedarse solo con los elementos booleanos (true o false) de un array.
+ */
+let myBooleanArray = myArray.filter(function (elem) {
+    if (typeof elem == "boolean") return elem;
+})
+
+// h21.textContent = "";
+// for (let elem of myBooleanArray)
+//     h21.textContent += elem + " - ";
+
+/**
+ * FECHAS Y HORAS
+ */
+let myBirthDate = new Date(2004, 4, 4);
+let dateNow = new Date();
+
+//h21.innerHTML = "Llevas vivo " + (dateNow - myBirthDate) / (1000*60*60*24) + " días.";
+
+
+const calendario = document.getElementById("calendario");
+calendario.oninput = function () {
+    h21.innerHTML = "Desde la fecha seleccionada y tu nacimiento han pasado " + (new Date(this.value) - myBirthDate) / (1000*60*60*24) + " días.";
+}
+h21.innerHTML = dateNow.toLocaleDateString();
