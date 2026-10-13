@@ -447,7 +447,47 @@ boton16.onclick=function(){
   ejercicio16.innerHTML = resultado;
 }
 
-//EJER 17 --> 
+//EJER 17 --> INTRODUCIMOS DOS NUMEROS, DECIMOS CUAL ES EL MENOR DE ELLOS, Y SACAMOS TODOS LOS NUMEROS QUE HAY ENTRE UNO Y OTRO
+let boton17 = document.getElementById("boton17");
+let ejer17_menor = document.getElementById("ejer17_menor");
+let ejer17_secuencia = document.getElementById("ejer17_secuencia");
+let num1_17 = document.getElementById("num1_17");
+let num2_17 = document.getElementById("num2_17");
+
+boton17.onclick=function(){
+
+    let n1 = parseInt(num1_17.value);
+    let n2 = parseInt(num2_17.value);
+
+    let menor = calcularMenor(n1, n2);
+
+    ejer17_menor.textContent = "El menor es: " + menor;
+
+    let secuencia = ""; //para meter la secuencia de numeros
+    let cantidad = 0; //para sacar la cantidad de numeros
+
+    //bucle para recorrer entre en le menor y el mayor
+    for (let i = menor + 1; i < Math.max(n1, n2); i++) {
+        secuencia += i + " ";
+        cantidad++;
+    }
+
+    ejer17_secuencia.innerHTML ="Números entre ambos: " + secuencia +" - Cantidad: " + cantidad;
+
+}
+
+function calcularMenor(){
+
+    let n1 = parseInt(num1_17.value);
+    let n2 = parseInt(num2_17.value);
+
+    if (n1 < n2) {
+        return n1;
+    } else {
+        return n2;
+    }
+}
+
 
 //EJER 18 -->
 
