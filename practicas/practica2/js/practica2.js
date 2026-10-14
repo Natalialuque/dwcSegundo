@@ -489,8 +489,145 @@ function calcularMenor(){
 }
 
 
-//EJER 18 -->
+//EJER 18 -->INTRODUCIMOS UN NUMERO Y DEMOS SACAR SI ES MULTIPLO DE 2 / 3 / 5 O SALIRNOS DEL PROGRAMA 
+let numero18 = document.getElementById("numero18");
+let opcion18 = document.getElementById("opcion18");
+let boton18 = document.getElementById("boton18");
+let ejer18 = document.getElementById("ejer18");
+
+boton18.addEventListener("click",opciones);
+
+function opciones(){
+
+    let nume = parseInt(numero18.value);
+    let op = parseInt(opcion18.value);
+
+     if (isNaN(nume)) {
+        alert("Introduce un número válido.");
+        return;
+     }
+
+    switch(op){
+        case 1:
+            if(nume%2===0){
+                ejer18.innerHTML="SI es multiplo de 2";
+            }else{
+                ejer18.innerHTML="NO es multiplo de 2";
+
+            }
+            break;
+        case 2:
+            if(nume%3===0){
+                ejer18.innerHTML="SI es multiplo de 3";
+            }else{
+                ejer18.innerHTML="NO es multiplo de 3";
+            }
+            break;
+        case 3: 
+            if(nume%5===0){
+                ejer18.innerHTML="SI es multiplo de 5";
+            }else{
+                ejer18.innerHTML="NO es multiplo de 5";
+            }
+            break 
+        case 0:
+            ejer18.innerHTML="Fin del juego"
+            break;
+    }
+
+
+
+}
+
 
 //EJER 19 --> 
+let nombre19 = document.getElementById("nombre19");
+let apellido19 = document.getElementById("apellido19");
+let horas19 = document.getElementById("horas19");
+let radiosTurno = document.getElementsByName("turno");
+let agregar19 = document.getElementById("agregar19");
+let finalizar19 = document.getElementById("finalizar19");
+let resultado19 = document.getElementById("resultado19");
+let totalBruto = document.getElementById("totalBruto");
+
+//funcion para sacar los radios 
+function obtenerTurno() {
+    for(let radio of radiosTurno){
+        if(radio.checked){
+            return radio.value;
+        }
+    }
+}
+
+
+//funcion para sacar los salarios brutos 
+function salarioBruto() {
+    let turno = obtenerTurno();
+    let horas = Number(horas19.value);
+
+    if(turno === "m"){
+        return horas * 25;
+    }
+    else if(turno === "t"){
+        return horas * 30;
+    }
+    else{
+        return horas * 35;
+    }
+}
+
+//funcion para obtener los sarios netos
+function salarioNeto() {
+    let bruto = salarioBruto();
+
+    if(bruto < 600){
+        return bruto - bruto * 0.08;
+    }
+    else if(bruto <= 1000){
+        return bruto - bruto * 0.10;
+    }
+    else if(bruto > 10000){
+        return bruto - bruto * 0.12;
+    }
+
+    return bruto;
+}
+
+
+//Cuando pulsamos el boton agregar trabajador, debemos guardarlos en un array 
+let trabajadores = [];
+ 
+agregar19.onclick=function(){
+    
+    let trabajador = {
+        nombre: nombre19.value,
+        apellido: apellido19.value,
+        horas: horas19.value,
+        turno: obtenerTurno(),
+        bruto: salarioBruto(),
+        neto: salarioNeto()
+    };
+
+    trabajadores.push(trabajador);
+
+    resultado19.innerHTML += "Nombre:"+trabajador.nombre+" Apellido:"+trabajador.apellido+" Horas:"+trabajador.horas+" Turno:"+trabajador.turno+" Salario Bruto:"+trabajador.bruto+" Salario Neto:"+trabajador.neto+"<br>";
+}
+
+//funcion que calcula todos los salarios 
+function calcularTotalBruto(){
+
+    let total = 0;
+
+    for(let trabajador of trabajadores){
+        total += trabajador.bruto;
+    }
+
+    return total;
+}
+
+
+finalizar19.onclick=function(){
+    totalBruto.innerHTML="EL resultado total de brutos es: "+calcularTotalBruto();
+}
 
 //EJER 20 --

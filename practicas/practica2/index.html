@@ -26,6 +26,8 @@
           <br>
         <input type="button" id="boton1" value="añadir">
 
+         <h3>Resultado:</h3>
+
         <p id="ejer1"></p>
 
         <br>
@@ -40,6 +42,8 @@
         <input type="text" id="valorB">
         <input type="button" id="boton2" value="resultado">
 
+         <h3>Resultado:</h3>
+
         <p id="ejer2"></p>
         <br>
      </div>
@@ -50,6 +54,9 @@
          <p>Introduce una cantidad en € :</p>
          <input type="text" id="euro">
          <input type="button" id="boton3" value="conversion">
+         
+                 <h3>Resultado:</h3>
+
          <p id="ejer3"></p>
 
          <br>
@@ -61,6 +68,8 @@
          <p>introduce el radio:</p>
          <input type="number" id="radio">
          <input type="button" id="boton4" value="calcular">
+                 <h3>Resultado:</h3>
+
          <p id="ejer4"></p>
          <br>
       </div>
@@ -73,6 +82,8 @@
          <p>Introduce el segundo valor (menor a 5000):</p>
          <input type="text" id="par2">
          <input type="button" id="boton5" value="pares">
+                 <h3>Resultado:</h3>
+
          <p id="ejer5"></p>
          <br>
       </div>
@@ -85,6 +96,8 @@
          <p>Introduce el segundo numero</p>
          <input type="number" id="num2">
          <input type="button" id="boton6" value="calcular">
+                 <h3>Resultado:</h3>
+
          <p id="ejer6"></p>
       </div>
 
@@ -98,6 +111,8 @@
          <p>Introduce la tercera nota</p>
          <input type="number" id="nota33">
          <input type="button" id="boton7" value="calcular">
+                <h3>Resultado:</h3>
+
          <p id="ejer7"></p>
       </div>
 
@@ -121,6 +136,8 @@
          <p>Introduce un numero</p>
          <input type="number" id="numArrow">
          <input type="button" id="boton10" value="saca">
+                 <h3>Resultado:</h3>
+
          <p id="ejer10"></p>
       </div>
 
@@ -129,6 +146,8 @@
       <div>
          <h2> JUEGO PUM </h2>
          <input type="button" id="boton11" value="PUM">
+                <h3>Resultado:</h3>
+
          <p id="ejer11"></p>
       </div>
 
@@ -136,6 +155,8 @@
        <div>
          <h2> CONTEO 1-300 </h2>
          <input type="button" id="boton12" value="CONTEO">
+                <h3>Resultado:</h3>
+
          <p id="ejer12"></p>
       </div>
 
@@ -143,7 +164,10 @@
        <div>
          <h2> SUMA DADOS </h2>
          <input type="button" id="boton13" value="DADOS">
+                <h3>Resultado:</h3>
+
          <p id="ejer13"></p>
+         <br>
       </div>
 
       <!-- EJERCICIO 14 -->
@@ -155,6 +179,7 @@
 
     <h4>Resultados:</h4>
         <p id="ejer14"></p>
+      <br>
     </div>
 
     <!-- EJERCICIO 15 -->
@@ -164,6 +189,7 @@
          <h4>Resultados:</h4>
             <p id="ejer15_1"></p>
             <p id="ejer15_2"></p>
+            <br>
      </div>
 
      <!-- EJERCICIO 16 -->
@@ -176,6 +202,7 @@
 
         <h4>Contraseña generada:</h4>
         <p id="ejercicio16"></p>
+         <br>
       </div>
 
       <!-- EJERCICIO 17 -->
@@ -189,12 +216,64 @@
 
          <button id="boton17">Comparar y mostrar rango</button>
 
-         <h2>Resultado:</h2>
+         <h3>Resultado:</h3>
          <p id="ejer17_menor"></p>
          <p id="ejer17_secuencia"></p>
+         <br>
+
+      </div>
+   <!-- EJERCICIO 18 -->
+    <div>
+        <h2>MENÚ DE MULTIPLOS</h2>
+
+        <label>Introduce un número:</label>
+        <input type="number" id="numero18" />
+
+        <label>Elige una opción:</label>
+        <select id="opcion18">
+          <option value="1">1.¿Es múltiplo de 2?</option>
+          <option value="2">2.¿Es múltiplo de 3?</option>
+          <option value="3">3.¿Es múltiplo de 5?</option>
+          <option value="0">0.Salir</option>
+        </select>
+
+        <button id="boton18">Ejecutar opción</button>
+
+        <h3>Resultado:</h3>
+        <p id="ejer18"></p>
+        <br>
+        
+    </div>
+
+   <!-- EJERCICIO 19 -->
+      <div>
+        <h2>CALCULADORA DE SALARIOS</h2>
+
+            <label>Nombre:</label>
+            <input type="text" id="nombre19" />
+
+            <label>Apellido:</label>
+            <input type="text" id="apellido19" />
+
+            <label>Horas trabajadas:</label>
+            <input type="number" id="horas19" min="0" />
+
+            <p>Turno:</p>
+            <label><input type="radio" name="turno" value="m" /> Mañana</label>
+            <label><input type="radio" name="turno" value="t" /> Tarde</label>
+            <label><input type="radio" name="turno" value="n" /> Noche</label>
+
+            <br><br>
+            <button id="agregar19">Agregar trabajador</button>
+            <button id="finalizar19">Finalizar</button>
+
+            <h4>Resultados:</h4>
+            <div id="resultado19"></div>
+            <div id="totalBruto"></div>
 
       </div>
 
 
+   <!-- EJERCICIO 20 -->
 </body>
 </html>
