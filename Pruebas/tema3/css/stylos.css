@@ -1,0 +1,65 @@
+* {
+    font-family: Arial, Helvetica, sans-serif;
+    box-sizing: border-box;
+    margin: 0%;
+    padding: 0%;
+}
+
+#ball {
+    display: absolute;
+    width: 100px;
+    height: 100px;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 50%;
+    text-align: center;
+
+}
+
+label {
+    display: block;
+    margin-top: 35%;
+    font-weight: bolder;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
+
+body {
+    background-color: darkblue;
+}
+
+header {
+    width: 100%;
+    height: 10%;
+    background-color: aqua;
+}
+
+
+main {
+    float: left;
+    height: 90%;
+    width: 100%;
+    background-color: darkblue;
+    color: white;
+}
+
+footer {
+    clear: both;
+    height: 10%;
+    width: 100%;
+    background-color: rgb(62, 204, 157);
+}
+
+jose-luis div {
+    width: 30%;
+    height: 20%;
+}
+
+input {
+    text-align: center;
+}
+
