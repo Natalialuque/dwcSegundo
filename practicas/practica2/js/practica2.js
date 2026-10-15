@@ -630,4 +630,28 @@ finalizar19.onclick=function(){
     totalBruto.innerHTML="EL resultado total de brutos es: "+calcularTotalBruto();
 }
 
-//EJER 20 --
+//EJER 20 --VAMOS A GENERAR UNA APLICACION DE ACERTACIÓN DE NUMEROS
+let intento20 = document.getElementById("intento20");
+let boton20 = document.getElementById("boton20");
+let ejer20 = document.getElementById("ejer20");
+
+
+//generamos un numero al azar entre 1-100
+let numeroSecreto = Math.floor(Math.random() * 100) + 1;
+
+boton20.addEventListener("click",azar);
+
+function azar(){
+
+    //debemos de sacar si el numero es mayor , menor o el acerdado 
+    if(intento20.value>numeroSecreto){
+        ejer20.innerHTML="el numero debe ser MENOR";
+    }
+    else if(intento20.value<numeroSecreto){
+        ejer20.innerHTML="el numero debe ser MAYOR";
+    }
+    else{
+        ejer20.innerHTML="HAS ACERTADO";
+    }
+
+}
