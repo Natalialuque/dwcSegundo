@@ -148,3 +148,76 @@ function dias(){
   //sacamos los dias
   resul4.innerHTML = "Llevas vivo "+ Math.floor(resultado / (1000 * 60 * 60 * 24))+" dias";
 }
+
+/**
+ * EJERCICIO 5 --> SACAR LA EDAD EN AÑOS DIAS HORAS Y MINUTOS, TEN EN CUENTA QUE QUE EN EL AÑO CUMPLE
+ */
+let fechaNacimiento = document.getElementById("fechaNacimiento");
+let boton5 = document.getElementById("boton5");
+let resul5 = document.getElementById("resul5");
+
+boton5.addEventListener("click",fecha);
+
+function fecha(){
+
+    const nacimiento = new Date(fechaNacimiento.value);
+    const ahora = new Date();
+
+  // Diferencia total en milisegundos, para poder multiplicar y sacarlo
+    const diferenciaMs = ahora - nacimiento;
+
+  // Calcular años completos
+    let edadAños = ahora.getFullYear() - nacimiento.getFullYear();
+
+  //para controlar que no ha cumplido años
+  const cumpleEsteAño = new Date(ahora.getFullYear(), nacimiento.getMonth(), nacimiento.getDate());
+  if (ahora < cumpleEsteAño) {
+    edadAños--; // Aún no ha cumplido años este año
+  }
+
+  // Calcular días, horas y minutos totales vividos
+    const diasTotales = Math.floor(diferenciaMs / (1000 * 60 * 60 * 24));
+    const horasTotales = Math.floor(diferenciaMs / (1000 * 60 * 60));
+    const minutosTotales = Math.floor(diferenciaMs / (1000 * 60));
+
+    resul5.innerHTML="Edad años:"+edadAños+"<br>Dias: "+diasTotales+"<br>Horas:"+horasTotales+"<br>Minutos:"+minutosTotales;
+  
+}
+
+/**
+ * EJERCICIO 6 --> 
+ */
+//variables 
+let hora = document.getElementById("hora");
+let texto = document.getElementById("texto");
+let recordar = document.getElementById("boton6");
+let lista = document.getElementById("resul6");
+
+//array para guardar todo el evento
+let eventos = [];
+
+recordar.onclick=function(){
+  //variables 
+  let mensaje = texto.value;
+  let tiempo = hora.value;
+
+  //si esta vacio que de error
+  if (!mensaje || !tiempo) {
+      alert("Por favor, escribe un recordatorio y selecciona una fecha.");
+      return;
+    }
+
+    //lo añadimos a un array
+    eventos.push({ mensaje, tiempo });
+
+    // Ordenar por fecha ascendente, para que aparezcan en orden
+    eventos.sort((a, b) => new Date(a.tiempo) - new Date(b.tiempo)); 
+
+    lista.innerHTML = ""; // ← Esto evita duplicados
+    eventos.forEach(evento => {
+      const fechaFormateada = new Date(evento.tiempo).toLocaleString();
+      lista.innerHTML += `<p><strong>${fechaFormateada}</strong>: ${evento.mensaje}</p>`;
+    });
+
+
+}
