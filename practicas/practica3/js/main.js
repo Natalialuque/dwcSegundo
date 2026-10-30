@@ -185,7 +185,7 @@ function fecha(){
 }
 
 /**
- * EJERCICIO 6 --> 
+ * EJERCICIO 6 --> se encarga de recoger un recordatorio y mostrarlo por pantalla, si tenemos mas de uno lo ordena por fecha de prioridad
  */
 //variables 
 let hora = document.getElementById("hora");
@@ -218,6 +218,86 @@ recordar.onclick=function(){
       const fechaFormateada = new Date(evento.tiempo).toLocaleString();
       lista.innerHTML += `<p><strong>${fechaFormateada}</strong>: ${evento.mensaje}</p>`;
     });
-
-
 }
+
+/**
+ * EJERCICIO 7 --> sacar la cantidad de caracteres de tipo - y las posiciones en las que estan
+ */
+let texto7 = document.getElementById("texto7");
+let boton7 = document.getElementById("boton7");
+let resul7 = document.getElementById("resul7");
+
+boton7.addEventListener("click",sacaCaracteres);
+
+function sacaCaracteres() {
+    let texto = texto7.value;
+
+    //para ir contando los caracteres
+    let cont = 0;
+    //las posiciones en la que se encuentran 
+    let posiciones = [];
+
+    //bucle para ir localizando los -, ir sumandolo al contador y añadiendo posiciones al array
+    for(let i = 0; i < texto.length; i++) {
+        if(texto[i] === "-") {
+            cont++;
+            posiciones.push(i);
+        }
+    }
+
+    resul7.innerHTML = "En el texto hay "+cont+"-, y se encuentran en las posiciones:"+posiciones.join(", ");
+}
+
+/**
+ * EJERCICIO 8 --> 
+ */
+let resultado = document.getElementById("resultado");
+//ejercicio 
+let array = [];
+
+    function mostrar() {
+      resultado.innerHTML=array;
+    }
+
+    function insertarFinal() {
+      const valor = document.getElementById("valor").value;
+      if (valor) array.push(valor);
+      mostrar();
+    }
+
+    function insertarInicio() {
+      const valor = document.getElementById("valor").value;
+      if (valor) array.unshift(valor);
+      mostrar();
+    }
+    function borrarPrimero() {
+      array.shift();
+      mostrar();
+    }
+
+    function borrarUltimo() {
+      array.pop();
+      mostrar();
+    }
+
+    function insertarEnPosicion() {
+      const valor = document.getElementById("valor").value;
+      const pos = parseInt(document.getElementById("posicion").value);
+      if (!isNaN(pos) && valor) array.splice(pos, 0, valor);
+      mostrar();
+    }
+
+    function eliminarEnPosicion() {
+      const pos = parseInt(document.getElementById("posicion").value);
+      if (!isNaN(pos)) array.splice(pos, 1);
+      mostrar();
+    }
+    function ordenarAsc() {
+      array.sort((a, b) => a.localeCompare(b, 'es', { numeric: true }));
+      mostrar();
+    }
+
+    function ordenarDesc() {
+      array.sort((a, b) => b.localeCompare(a, 'es', { numeric: true }));
+      mostrar();
+    }
