@@ -1,6 +1,6 @@
 const info = document.getElementById("info");
-const listaPaises = document.getElementById("paises");
-const opRadio = document.getElementsByName("edad");
+let listaPaises = document.getElementById("paises");
+let opRadio = document.getElementsByName("edad");
 
 const opciones = listaPaises.getElementsByTagName("li");
 
@@ -41,7 +41,7 @@ document.getElementById("bChangeClassStyle").onclick = function () {
  */
 document.getElementById("bNuevoPais").onclick = function () {
 
-listaPaises = document.getElementsByTagName("li");;
+listaPaises = document.getElementsByTagName("li");
 let nuevoPais = document.getElementById("nuevoPais").value;
 
 if (nuevoPais == "") 
@@ -60,5 +60,33 @@ else { // Insertamos nuevo nodo en la lista
     document.getElementById("paises").appendChild(nuevoNodoPais);
 }
 
+}
 
+/**
+ * FUNCTION CREATE NODE
+ * @param tipo 
+ * @param Texto 
+ * @param id 
+ * 
+ */
+function createNode (tipo, texto, id, styles) {
+    let elemento = null;
+
+    if ((tipo) && (typeof tipo === "string")) 
+        elemento = document.createElement(tipo);
+    else
+        return null;
+        
+    if ((texto != "") && (typeof texto === "string")) {
+        let elementoText = document.createTextNode(texto);
+        elemento.appendChild(elementoText);
+    }
+
+    if (id != "") 
+        elemento.id = id;
+
+    if ((styles) && (typeof styles === "string") && (styles != ""))
+        elemento.style = styles;
+
+    return elemento;
 }
