@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./js/main.js" defer></script>
+    <link rel="stylesheet" href="./stylos/stylos.css">
+
+</head>
+<body>
+<!--CABECERA VA TITULO Y LO DE LAS HORAS-->
+<header class="header">
+    <div>
+        <h1>El Templo</h1>
+        <p>Gestor de Socios</p>
+    </div>
+
+    <div class="fechaHora">
+        <h3>Hora:</h3>
+        <p id="fechaActual"></p>
+        <p id="horaActual"></p>
+    </div>
+</header>
+
+<main class="contenedorPrincipal">
+
+    <!-- IZQUIERDA -->
+
+    <section class="panel listadoPanel">
+
+        <div class="panelTitulo">
+            <h2>Socios</h2>
+            <button id="btnPantallaCompleta">
+                Pantalla completa
+            </button>
+        </div>
+
+        <div class="filtros">
+
+            <input
+                type="text"
+                id="txtBuscar"
+                placeholder="Buscar socio..."
+            >
+
+            <select id="selActividad">
+                <option>Todas las actividades</option>
+            </select>
+
+            <select id="selOrden">
+                <option>Nombre</option>
+                <option>Apellidos</option>
+                <option>Más jóvenes</option>
+                <option>Más antiguos</option>
+            </select>
+
+        </div>
+
+        <table id="tablaSocios">
+
+            <thead>
+            <tr>
+                <th>Socio</th>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Edad</th>
+                <th>Actividades</th>
+                <th>Cuota</th>
+            </tr>
+            </thead>
+
+            <tbody id="tbodySocios"></tbody>
+
+        </table>
+
+        <p id="mensajeSinResultados"></p>
+
+    </section>
+
+    <!-- DERECHA -->
+
+    <aside class="panelesDerecha">
+
+        <!-- FICHA -->
+
+        <section class="panel">
+
+            <h2>Ficha de Socio</h2>
+
+            <form id="frmBusquedaDni">
+
+                <input
+                    type="text"
+                    id="txtDniBusqueda"
+                    placeholder="Introduzca DNI"
+                >
+
+                <button type="submit">
+                    Buscar
+                </button>
+
+            </form>
+
+            <div id="resultadoFicha"></div>
+
+        </section>
+
+        <!-- ALTA -->
+
+        <section class="panel">
+
+            <h2>Alta de Socio</h2>
+
+            <form id="frmAlta">
+
+                <input type="text" id="txtNombre" placeholder="Nombre">
+
+                <input type="text" id="txtApellidos" placeholder="Apellidos">
+
+                <input type="text" id="txtDni" placeholder="DNI">
+
+                <input type="email" id="txtEmail" placeholder="Email">
+
+                <input type="text" id="txtTelefono" placeholder="Teléfono">
+
+                <input
+                    type="text"
+                    id="txtFechaNacimiento"
+                    placeholder="dd/mm/aaaa"
+                >
+
+                <fieldset>
+
+                    <legend>Actividades</legend>
+
+                    <label><input type="checkbox" value="natación">Natación</label>
+
+                    <label><input type="checkbox" value="yoga">Yoga</label>
+
+                    <label><input type="checkbox" value="pádel">Pádel</label>
+
+                    <label><input type="checkbox" value="musculación">Musculación</label>
+
+                    <label><input type="checkbox" value="spinning">Spinning</label>
+
+                    <label><input type="checkbox" value="pilates">Pilates</label>
+
+                </fieldset>
+
+                <input
+                    type="number"
+                    id="txtCuota"
+                    placeholder="Cuota mensual"
+                >
+
+                <button type="submit">
+                    Dar de Alta
+                </button>
+
+            </form>
+
+            <div id="mensajeAlta"></div>
+
+        </section>
+
+    </aside>
+
+</main>
+
+<section class="panel estadisticas">
+
+    <h2>estadísticas en Tiempo Real</h2>
+
+    <div class="gridStats">
+
+        <div class="statCard" id="statTotal"></div>
+
+        <div class="statCard" id="statIngresos"></div>
+
+        <div class="statCard" id="statCuotaMedia"></div>
+
+        <div class="statCard" id="statEdadMedia"></div>
+
+        <div class="statCard" id="statActividad"></div>
+
+        <div class="statCard" id="statMenores"></div>
+
+    </div>
+
+    <div class="extraStats">
+
+        <div>
+            <h3>Socios Más Veteranos</h3>
+            <ul id="listaVeteranos"></ul>
+        </div>
+
+        <div>
+            <h3>Dominios de Correo</h3>
+            <ul id="listaDominios"></ul>
+        </div>
+
+    </div>
+
+</section>
+
+</body>
+</html>
