@@ -2,7 +2,6 @@
  * Creamos un array de socios, donde vamos a crear 10 socios diferentes y son los que nos van a estar apareciendo siempre
  */
 let socios = [
-
     {
         id: "SOC-0001",
         nombre: "Lucía",
@@ -150,7 +149,7 @@ function iniciarAplicacion() {
     //cargarComboActividades();
 
     // Pintar los 10 socios iniciales
-    //pintarTablaSocios(socios);
+    pintarTablaSocios();
 
     // Eventos de botones y formularios
     //registrarEventos();
@@ -234,18 +233,30 @@ function cargarActividades() {
 
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/**
- * Creamos la funcion donde vamos a hacer la carga de socios
- * @param {*} listaSocios 
- */
-function pintarTablaSocios(listaSocios) {
-    const tbody = document.getElementById("tbodySocios");
 
+function pintarTablaSocios() {
+
+    //llamamos al body donde vamos a mostrar los socios
+    const tbody =document.getElementById("tbodySocios");
+
+    //lo limpiamos para no dar errores
     tbody.innerHTML = "";
 
-    //recorremos el array 
-    for (const socios of listaSocios) {
-        tbody.innerHTML += crearFilaSocio(socios);
+    //recorremos el array de socios y vamos metiendolo en cada apartado
+    for (let socio of socios) {
+
+        tbody.innerHTML += `
+            <tr>
+
+                <td>${socio.id}</td>
+                <td>${socio.nombre}</td>
+                <td>${socio.apellidos}</td>
+                <td>${socio.email}</td>
+                <td>${socio.actividades}</td>
+                <td>${socio.cuota} €</td>
+
+            </tr>
+        `;
 
     }
 
