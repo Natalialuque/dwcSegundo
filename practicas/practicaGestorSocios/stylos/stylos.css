@@ -411,3 +411,9 @@ legend{
     display:flex;
     align-items:center;
 }
+
+/*  */
+#panelSocios:fullscreen{
+    padding: 20px;
+    overflow: auto;
+}

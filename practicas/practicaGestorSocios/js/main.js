@@ -99,9 +99,10 @@ function actualizarHora() {
 function cargarActividades() {
 
 }
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-//En esta funcion vamos a mostrar en la tabla de socios cada uno de ellos de la forma correspondiene 
+/**
+ * FUNCION A MOSTRAR SOCIOS --> funcion general donde mostramos socios, albergamos una serie mas de funciones donde 
+ *                              controlamos diferentes aspectos 
+ */
 function pintarTablaSocios() {
 
     //llamamos al body donde vamos a mostrar los socios
@@ -126,8 +127,10 @@ function pintarTablaSocios() {
                 <td>${ocultarEmail(socio.email)}</td>
                 ${/* nombre, primer apellido y la inicial del segundo apellido */''}
                 <td>${CalculaFechaNacimiento(socio.fechaNacimiento)}</td>
+                ${/* Actividades */''}
                 <td>${socio.actividades}</td>
-                <td>${socio.cuota} €</td>
+                 ${/* Cuota formateada a dos decimales y con € */''}
+                <td>${formatearCuota(socio.cuota)}</td>
 
             </tr>
         `;
@@ -184,6 +187,31 @@ function CalculaFechaNacimiento(fechaNacimiento) {
 
     return edad;
 }
+
+//para sacar la cuota con dos decimales 
+function formatearCuota(cuota){
+    return cuota.toFixed(2) + " €";
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * BOTON DE AGRANDAR --> Funcion que permite lo de pantalla completa, el fullScreen basicamente controla que si este en pantalla completa
+ */
+let botonPantalla = document.getElementById("btnPantallaCompleta");
+botonPantalla.addEventListener("click",pantallaCompleta);
+
+function pantallaCompleta() {
+
+    let panel = document.getElementById("panelSocios");
+
+    if (!document.fullscreenElement) {
+        panel.requestFullscreen();
+    } else {
+        document.exitFullscreen();
+    }
+}
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function mostrarEstadisticas() {
