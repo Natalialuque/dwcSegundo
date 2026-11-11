@@ -16,21 +16,26 @@ function iniciarAplicacion() {
     //cargarComboActividades();
 
     // Pintar los 10 socios iniciales
-    pintarTablaSocios();
+    pintarTablaSocios(socios);
 
-    // Eventos de botones y formularios
-    //registrarEventos();
+    //Todos los filtros de la tabla 
+    aplicarBuscaFiltroOrden();
 
     // Estadísticas iniciales
     //mostrarEstadisticas();
 
 }
 
-/**
- * FUNCIONES --> Vamos a ir creando funciones 
- */
 
-//Funcion en la que vamos a mostrar la fecha actual
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * APARTADO 3.1 DE LA PRACTICA 
+ */
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * FUNCION FECHA ACTUAL --> 
+ */
 function mostrarFechaActual() {
 
     //llamamos al elemento donde mostramos la fehca del html
@@ -56,7 +61,9 @@ function mostrarFechaActual() {
 
 }
 
-//funcion en la que vamos a mostrar la hora actual, pero se debe ir actualizando cada x para que sea correcta 
+/**
+ * FUNCION QUE NOS INICIALIZA EL RELOJ CADA 1 SEGUNDO
+ */
 function iniciarReloj() {
     //esta funcion es la de la hora y la seguida es para que se vaya actualizando cada segundo
     actualizarHora();
@@ -66,6 +73,9 @@ function iniciarReloj() {
     );
 }
 
+/**
+ * FUNCION QUE NOS SACA LA HORA 
+ */
 function actualizarHora() {
     //llamamos al elemento donde mostramos la hora del html
     const horaActual = document.getElementById("horaActual");
@@ -95,15 +105,25 @@ function actualizarHora() {
     horaActual.innerHTML = horas + ":" +minutos + ":" +segundos;
 
 }
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 function cargarActividades() {
 
 }
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /**
+ * APARTADO 3.1 DE LA PRACTICA 
+ */
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * 
  * FUNCION A MOSTRAR SOCIOS --> funcion general donde mostramos socios, albergamos una serie mas de funciones donde 
  *                              controlamos diferentes aspectos 
  */
-function pintarTablaSocios() {
+function pintarTablaSocios(listaSocios) {
 
     //llamamos al body donde vamos a mostrar los socios
     const tbody =document.getElementById("tbodySocios");
@@ -112,7 +132,7 @@ function pintarTablaSocios() {
     tbody.innerHTML = "";
 
     //recorremos el array de socios y vamos metiendolo en cada apartado
-    for (let socio of socios) {
+    for (let socio of listaSocios) {
 
         tbody.innerHTML += `
             <tr>
@@ -193,7 +213,132 @@ function formatearCuota(cuota){
     return cuota.toFixed(2) + " €";
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * FUNCION DE APLICAR BUSCAR+ORDEN+FILTRO --> Una funcion general que albergue las tres funciones y haga directamente las variaciones 
+ */
+
+function aplicarBuscaFiltroOrden() {
+
+    //hacemos una copia del array de socios para poder ir apliacando cada filtro
+    let resultado = socios.slice();
+
+    resultado = buscarSocios(resultado);
+
+    resultado = aplicarFiltroActividad(resultado);
+
+    resultado = aplicarOrden(resultado);
+
+    pintarTablaSocios(resultado);
+}
+
+//controles de las funciones 
+const buscador = document.getElementById("txtBuscar");
+const selectActividad = document.getElementById("selActividad");
+const selectOrden = document.getElementById("selOrden");
+
+buscador.addEventListener("input", aplicarBuscaFiltroOrden);
+selectActividad.addEventListener("change", aplicarBuscaFiltroOrden);
+selectOrden.addEventListener("change", aplicarBuscaFiltroOrden);
+
+//Funcion Buscar --> mientras se escribe, la tabla cambia su contenido y mostrará solo los socios cuyo
+                    //nombre, apellidos o email contienen el texto. La búsqueda empezará a partir de que el usuario
+                    //escriba 2 caracteres. No debe distinguir mayúsculas ni tildes: alvaro encuentra a Álvaro.
+function buscarSocios(listaSocios) {
+
+    // Normalizo el texto del input
+    let textoBusqueda = normalizarTexto(buscador.value.trim());
+
+    // Si ha escrito menos de 2 caracteres,no se filtra nada y se devuelve la lista original.
+    if (textoBusqueda.length < 2) {
+        return listaSocios;
+    }
+
+    // filter recorre todos los socios//Si devuelve true, el socio se guarda // Si devuelve false, se descarta.
+    return listaSocios.filter(socio => {
+
+        // Normalizo nombre, apellidos y email para ignorar mayúsculas y tildes.
+        let nombre = normalizarTexto(socio.nombre);
+        let apellidos = normalizarTexto(socio.apellidos);
+        let email = normalizarTexto(socio.email);
+
+        // Compruebo si el texto aparece en alguno de los tres campos.
+        return nombre.includes(textoBusqueda) ||
+               apellidos.includes(textoBusqueda) ||
+               email.includes(textoBusqueda);
+
+    });
+}
+
+//funcion auxilar para que no distinga entre mayusculas, ni tildes, MUY MUY COMODA
+function normalizarTexto(texto) {
+    return texto.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
+//Funcion Filtro --> añade una lista desplegable con las actividades que se practican en el club,
+                    //más la opción Todas las actividades. Al pulsar en una actividad, en la tabla solo se verán los
+                    //socios que están matriculados en esa actividad.
+function aplicarFiltroActividad(listaSocios) {
+
+    // Actividad elegida por el usuario
+    let actividadSeleccionada = selectActividad.value;
+
+    // Si se selecciona la opción de mostrar todo no aplicamos ningún filtro.
+    if (actividadSeleccionada === "Todas las actividades") {
+        return listaSocios;
+    }
+
+    // Devolvemos únicamente los socios que contienen la actividad seleccionada.
+    return listaSocios.filter(socio =>
+        socio.actividades.includes(actividadSeleccionada)
+    );
+}
+
+//Funcion orden --> añade una lista desplegable que ordene la tabla de todos los socios: por nombre,
+                    //apellidos, más jóvenes primero o más antiguos primero.
+function aplicarOrden(listaSocios) {
+    //guardamos los tipos de ordenes que tenemos
+    let tipoOrden = selectOrden.value;
+
+    //generamos un switch con los tipos y vamos ordenando mediante lo que nos pide cada uno
+    switch (tipoOrden) {
+
+        case "Nombre":
+             //MUY TOP LOCALCOMPARE --> COMPARA ALFABETICAMENTE Y LOS VA ORDENANDO
+            listaSocios.sort((a, b) =>
+                a.nombre.localeCompare(b.nombre)
+            );
+
+            break;
+
+        case "Apellidos":
+             //MUY TOP LOCALCOMPARE --> COMPARA ALFABETICAMENTE Y LOS VA ORDENANDO
+            listaSocios.sort((a, b) =>
+                a.apellidos.localeCompare(b.apellidos)
+            );
+
+            break;
+
+        case "Más jóvenes":
+            //busca al mas pequeño y lo pone primero
+            listaSocios.sort((a, b) =>
+                new Date(b.fechaNacimiento) -
+                new Date(a.fechaNacimiento)
+            );
+
+            break;
+
+        case "Más antiguos":
+            //busca al mas antiguo y lo pone primero
+            listaSocios.sort((a, b) =>
+                new Date(a.fechaAlta) -
+                new Date(b.fechaAlta)
+            );
+
+            break;
+    }
+
+    return listaSocios;
+}
 
 /**
  * BOTON DE AGRANDAR --> Funcion que permite lo de pantalla completa, el fullScreen basicamente controla que si este en pantalla completa
@@ -214,10 +359,20 @@ function pantallaCompleta() {
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-function mostrarEstadisticas() {
+/**
+ * APARTADO 3.3 DE LA PRACTICA 
+ */
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-}
 
-function registrarEventos() {
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * APARTADO 3.4 DE LA PRACTICA 
+ */
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * APARTADO 3.5 DE LA PRACTICA 
+ */
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

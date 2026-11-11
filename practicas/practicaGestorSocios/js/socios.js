@@ -29,7 +29,7 @@ let socios = [
     {
         id: "SOC-0003",
         nombre: "Carmen",
-        apellidos: "López Sánchez",
+        apellidos: "Gómez Sánchez",
         dni: "45678912P",
         email: "carmen.lopez@hotmail.com",
         telefono: "633987456",
