@@ -363,7 +363,70 @@ function pantallaCompleta() {
  * APARTADO 3.3 DE LA PRACTICA 
  */
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+let DNI = document.getElementById("txtDniBusqueda");
+let botonBuscaPorDNi = document.getElementById("buscarDNi");
 
+
+botonBuscaPorDNi.addEventListener("click",mostarCliente);
+
+/**
+ * FUNCION MOSTRAR CLIENTE --> Mediante esta funcion abrimos una nueva ventana en la que vamos a mostrar un cliente que hemos buscado, mediante OPEN WINDOW 
+ */
+function mostarCliente(){
+    //llamamos al dni y le quitamos los espacios
+    let dniIntroducido = DNI.value.trim();
+
+    //si el campo esta vacio
+    if(dniIntroducido===""){
+        alert("campo vacio, rellana con dni");
+        return;
+    }
+
+    //si el dni es incorrecto devolvemos un error 
+    if(!validaDNI(dniIntroducido)){
+        alert("Formato de DNI incorrecto");
+        return;
+    }
+
+    //buscamos en el array de socios que el dni estte 
+    let socioEncontrado = null;
+    for(let socio of socios){
+        if(socio.dni.toUpperCase() == dniIntroducido.toUpperCase()){
+            socioEncontrado = socio;
+            break;
+        }
+    }
+    //si no exite socio damos otro error 
+    if(!socioEncontrado){
+        alert("No existe ningún socio con ese DNI");
+        return;
+    }
+
+    //llamamos al open window despues de haber verificado todo eso
+    let ventana = window.open(
+        "fichaSocio.html",
+        "FichaSocio",
+        "width=700,height=700"
+    );
+
+    // Pasamos el socio encontrado a la nueva ventana, para poder mostrar los datos del dni introducido
+    ventana.onload = function(){
+        ventana.mostrarDatos(socioEncontrado);
+    };
+
+
+    
+}
+
+//Funcion para validar que el dni es correcto 
+function validaDNI(dni){
+    //expresion regular que verifica que tenga 8 numeros y una letra
+    let patron = /^[0-9]{8}[a-zA-Z]{1}$/;
+
+    //verificamos
+    return patron.test(dni);
+
+}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /**
