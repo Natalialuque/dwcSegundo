@@ -372,23 +372,29 @@ botonBuscaPorDNi.addEventListener("click",mostarCliente);
 /**
  * FUNCION MOSTRAR CLIENTE --> Mediante esta funcion abrimos una nueva ventana en la que vamos a mostrar un cliente que hemos buscado, mediante OPEN WINDOW 
  */
-function mostarCliente(){
-    //llamamos al dni y le quitamos los espacios
+let socioFicha = null;
+
+//la hija llama a esta funcion para recoger el socio
+window.obtenerSocioFicha = function(){
+    return socioFicha;
+};
+
+function mostarCliente(e){
+    //SUPER IMPORTANTE -> EVITA QUE RECARGUE LA PAGINA
+    e.preventDefault();   // evita que se recargue la página
+
     let dniIntroducido = DNI.value.trim();
 
-    //si el campo esta vacio
     if(dniIntroducido===""){
         alert("campo vacio, rellana con dni");
         return;
     }
 
-    //si el dni es incorrecto devolvemos un error 
     if(!validaDNI(dniIntroducido)){
         alert("Formato de DNI incorrecto");
         return;
     }
 
-    //buscamos en el array de socios que el dni estte 
     let socioEncontrado = null;
     for(let socio of socios){
         if(socio.dni.toUpperCase() == dniIntroducido.toUpperCase()){
@@ -396,26 +402,20 @@ function mostarCliente(){
             break;
         }
     }
-    //si no exite socio damos otro error 
+
     if(!socioEncontrado){
         alert("No existe ningún socio con ese DNI");
         return;
     }
 
-    //llamamos al open window despues de haber verificado todo eso
-    let ventana = window.open(
+    //guardamos el socio correcto y abrimos la ventana
+    socioFicha = socioEncontrado;
+
+    window.open(
         "fichaSocio.html",
         "FichaSocio",
         "width=700,height=700"
     );
-
-    // Pasamos el socio encontrado a la nueva ventana, para poder mostrar los datos del dni introducido
-    ventana.onload = function(){
-        ventana.mostrarDatos(socioEncontrado);
-    };
-
-
-    
 }
 
 //Funcion para validar que el dni es correcto 
@@ -433,6 +433,56 @@ function validaDNI(dni){
  * APARTADO 3.4 DE LA PRACTICA 
  */
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+function darAltaSocio(){
+
+}
+
+//creaamos las variables con las que llamamos 
+let nombreInput= document.getElementById("txtNombre");
+let apellidosInput = document.getElementById("txtApellidos");
+let dniInput = document.getElementById("txtDni");
+let emailInput = document.getElementById("txtEmail");
+let telefonoInput = document.getElementById("txtTelefono");
+let fechaNaciInput = document.getElementById("txtFechaNacimiento");
+let cuotaInput = document.getElementById("txtCuota");
+let checks = document.querySelectorAll('input[name="actividad"]');
+
+
+//verificar nombre y apellido -- Solo letras (incluidas tildes, ñ y ü) y un único espacio entre palabras
+function nombreApellido(){
+
+    let nombre = nombreInput.value.trim();
+    let apellido = apellidosInput.value.trim();
+
+    if(nombre === "" || apellido === ""){
+        alert("error, no pueden estar vacios los campos nombre y apellido");
+        return;
+    }
+
+    //patron: palabras de letras separadas por un unico espacio
+    let patron = /^[A-Za-zÁÉÍÓÚáéíóúÑñÜü]+( [A-Za-zÁÉÍÓÚáéíóúÑñÜü]+)*$/;
+
+    //comprobamos el nombre
+    if(!patron.test(nombre)){
+        alert("error, el nombre solo puede tener letras y un único espacio entre palabras");
+        return;
+    }
+
+    //comprobamos el apellido
+    if(!patron.test(apellido)){
+        alert("error, el apellido solo puede tener letras y un único espacio entre palabras");
+        return;
+    }
+
+    //todo correcto
+    return true;
+}
+
+
+
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /**

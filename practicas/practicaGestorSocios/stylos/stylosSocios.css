@@ -1,0 +1,117 @@
+:root{
+    --negro:#111111;
+    --gris:#1c1c1c;
+    --rojo:#c1121f;
+    --rojoHover:#900f18;
+    --amarillo:#fcbf49;
+    --amarilloClaro:#ffd166;
+    --blanco:#f8f9fa;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    background:var(--negro);
+    color:var(--blanco);
+    padding:20px;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+/* CABECERA: el h1 con nombre e id */
+h1{
+    width:100%;
+    max-width:600px;
+    background:linear-gradient(135deg, var(--rojo), #5a0000);
+    color:white;
+    font-size:2rem;
+    padding:25px;
+    border-radius:15px 15px 0 0;
+    text-align:center;
+    box-shadow:0 5px 15px rgba(0,0,0,.4);
+}
+
+/* DATOS: cada párrafo es una fila de la ficha */
+p{
+    width:100%;
+    max-width:600px;
+    background:var(--gris);
+    color:var(--blanco);
+    padding:14px 20px;
+    border-left:2px solid var(--amarillo);
+    border-right:2px solid var(--amarillo);
+    border-bottom:1px solid #333;
+    font-size:1rem;
+}
+
+/* Filas alternas como en la tabla principal */
+p:nth-of-type(even){
+    background:#232323;
+}
+
+p:hover{
+    background:#303030;
+}
+
+/* Última fila: cierra la tarjeta */
+p:last-of-type{
+    border-bottom:2px solid var(--amarillo);
+    border-radius:0 0 15px 15px;
+    box-shadow:0 5px 15px rgba(0,0,0,.4);
+}
+
+/* Etiquetas en amarillo (si usas <strong> o <span class="etiqueta"> dentro del p) */
+p strong,
+p .etiqueta{
+    color:var(--amarillo);
+    margin-right:6px;
+}
+
+/* Círculo del id (mismo que en la página principal) */
+.circulo{
+    display:inline-flex;
+    justify-content:center;
+    align-items:center;
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    background:#f80e0e;
+    color:white;
+    font-size:14px;
+    font-weight:700;
+    margin-right:10px;
+    box-shadow:0 2px 5px rgba(0,0,0,.2);
+}
+
+/* Botón opcional (por ejemplo, para cerrar la ventana) */
+button{
+    margin-top:20px;
+    background:var(--rojo);
+    color:white;
+    border:none;
+    border-radius:8px;
+    padding:10px 16px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+button:hover{
+    background:var(--rojoHover);
+}
+
+/* RESPONSIVE */
+@media(max-width:700px){
+    body{
+        padding:10px;
+    }
+    h1{
+        font-size:1.5rem;
+    }
+}

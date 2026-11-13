@@ -164,3 +164,26 @@ function diasParaCumple(fechaNacimiento){
         diferencia / (1000*60*60*24)
     );
 }
+
+/**
+ * CODIGO QUE SE EJECUTA AL CARGAR LA VENTANA HIJA
+ * (con "defer" el DOM y socios.js ya estan listos)
+ */
+
+// si la ventana no la ha abierto el main, no hay dni que recoger
+if(!window.opener){
+
+    document.getElementById("nombre_Id").textContent =
+        "Abre esta ficha desde la página principal";
+
+} else {
+
+    //pedimos el socio a la ventana principal
+    let socio = window.opener.obtenerSocioFicha();
+
+    if(socio){
+        mostrarDatos(socio);
+    } else {
+        document.getElementById("nombre_Id").textContent = "Socio no encontrado";
+    }
+}
