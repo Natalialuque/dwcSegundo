@@ -449,38 +449,101 @@ let fechaNaciInput = document.getElementById("txtFechaNacimiento");
 let cuotaInput = document.getElementById("txtCuota");
 let checks = document.querySelectorAll('input[name="actividad"]');
 
+//creamos las variables en las que mostramos errores 
+let errorNombre= document.getElementById("errorNombre");
+let errorApellidos = document.getElementById("errorApellidos");
+let errorDni = document.getElementById("errorDni");
+let errorEmail = document.getElementById("errorEmail");
+let errorTelefono = document.getElementById("errorTelefono");
+let errorFecha = document.getElementById("errorFecha");
+let errorCuota = document.getElementById("errorCuota");
+let errorActividades = document.getElementById("errorActividades");
 
-//verificar nombre y apellido -- Solo letras (incluidas tildes, ñ y ü) y un único espacio entre palabras
-function nombreApellido(){
 
-    let nombre = nombreInput.value.trim();
-    let apellido = apellidosInput.value.trim();
+//boton de añadir 
+let darAlta = document.getElementById("darAlta");
 
-    if(nombre === "" || apellido === ""){
-        alert("error, no pueden estar vacios los campos nombre y apellido");
-        return;
+darAlta.addEventListener("click",verificaAñade);
+
+//FUNCION VERIFICA Y AÑADE --> Donde vamos a comprar que los campos estan bien escritos y añadirlos al array 
+function verificaAñade(evento){
+    evento.preventDefault(); // evita que el formulario se envíe y recargue la página
+
+    const nombre = validarNombre();
+    const apellidos = validarApellidos();
+
+    if (nombre === null || apellidos === null) {
+        return; // hay errores: ya se están mostrando en sus span
     }
 
-    //patron: palabras de letras separadas por un unico espacio
-    let patron = /^[A-Za-zÁÉÍÓÚáéíóúÑñÜü]+( [A-Za-zÁÉÍÓÚáéíóúÑñÜü]+)*$/;
-
-    //comprobamos el nombre
-    if(!patron.test(nombre)){
-        alert("error, el nombre solo puede tener letras y un único espacio entre palabras");
-        return;
-    }
-
-    //comprobamos el apellido
-    if(!patron.test(apellido)){
-        alert("error, el apellido solo puede tener letras y un único espacio entre palabras");
-        return;
-    }
-
-    //todo correcto
-    return true;
 }
 
+//DOS FUNCIONES PARA PONER LOS CAMPOS EN ROJO Y MOSTRAR EL ERROR Y OTRA PARA BORARLO
+/** Marca un campo como erróneo (borde rojo) y muestra el mensaje. */
+function mostrarError(input, spanError, mensaje) {
+    input.classList.add("error");
+    spanError.textContent = mensaje;
+}
 
+/** Quita la marca de error de un campo y limpia el mensaje. */
+function quitarError(input, spanError) {
+    input.classList.remove("error");
+    spanError.textContent = "";
+}
+    
+// Patrón: palabras formadas solo por letras (con tildes, ñ, ü), separadas por un único espacio
+const PATRON_TEXTO = /^[A-Za-zÁÉÍÓÚáéíóúÑñÜü]+( [A-Za-zÁÉÍÓÚáéíóúÑñÜü]+)*$/;
+
+//VALIDAR NOMBRE ---> Solo letras (incluidas tildes, ñ y ü) y un único espacio entre palabras
+function validarNombre() {
+    const valor = nombreInput.value.trim();
+
+    if (valor === "") {
+        mostrarError(nombreInput, errorNombre, "El nombre no puede estar vacío");
+        return null;
+    }
+    if (!PATRON_TEXTO.test(valor)) {
+        mostrarError(nombreInput, errorNombre, "El nombre solo puede tener letras y un único espacio entre palabras");
+        return null;
+    }
+
+    quitarError(nombreInput, errorNombre);
+    return valor;
+}
+
+//VALIDAR APELLIDO -->Solo letras (incluidas tildes, ñ y ü) y un único espacio entre palabras
+function validarApellidos() {
+    const valor = apellidosInput.value.trim();
+
+    if (valor === "") {
+        mostrarError(apellidosInput, errorApellidos, "Los apellidos no pueden estar vacíos");
+        return null;
+    }
+    if (!PATRON_TEXTO.test(valor)) {
+        mostrarError(apellidosInput, errorApellidos, "Los apellidos solo pueden tener letras y un único espacio entre palabras");
+        return null;
+    }
+
+    quitarError(apellidosInput, errorApellidos);
+    return valor;
+}
+
+//VALIDAR dni -->Solo letras (incluidas tildes, ñ y ü) y un único espacio entre palabras
+function validardni() {
+    const valor = apellidosInput.value.trim();
+
+    if (valor === "") {
+        mostrarError(apellidosInput, errorApellidos, "Los apellidos no pueden estar vacíos");
+        return null;
+    }
+    if (!PATRON_TEXTO.test(valor)) {
+        mostrarError(apellidosInput, errorApellidos, "Los apellidos solo pueden tener letras y un único espacio entre palabras");
+        return null;
+    }
+
+    quitarError(apellidosInput, errorApellidos);
+    return valor;
+}
 
 
 

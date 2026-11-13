@@ -123,20 +123,32 @@
             <form id="frmAlta">
 
                 <input type="text" id="txtNombre" placeholder="Nombre">
+                <span id="errorNombre" class="mensaje-error"></span>
+
 
                 <input type="text" id="txtApellidos" placeholder="Apellidos">
+                <span id="errorApellidos" class="mensaje-error"></span>
+
 
                 <input type="text" id="txtDni" placeholder="DNI">
+                <span id="errorDni" class="mensaje-error"></span>
+
 
                 <input type="email" id="txtEmail" placeholder="Email">
+                <span id="errorEmail" class="mensaje-error"></span>
+
 
                 <input type="text" id="txtTelefono" placeholder="Teléfono">
+                <span id="errorTelefono" class="mensaje-error"></span>
+
 
                 <input
                     type="text"
                     id="txtFechaNacimiento"
                     placeholder="dd/mm/aaaa"
                 >
+                <span id="errorFecha" class="mensaje-error"></span>
+
 
                 <fieldset id="actividades">
                     <legend>Actividades</legend>
@@ -148,20 +160,22 @@
                     <label><input type="checkbox" name="actividad" value="spinning">Spinning</label>
                     <label><input type="checkbox" name="actividad" value="pilates">Pilates</label>
                 </fieldset>
+                <span id="errorActividades" class="mensaje-error"></span>
+
 
                 <input
                     type="number"
                     id="txtCuota"
                     placeholder="Cuota mensual"
                 >
+                <span id="errorCuota" class="mensaje-error"></span>
 
-                <button type="submit">
+
+                <button type="submit" id="darAlta">
                     Dar de Alta
                 </button>
 
             </form>
-
-            <div id="mensajeAlta"></div>
 
         </section>
 

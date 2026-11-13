@@ -417,3 +417,8 @@ legend{
     padding: 20px;
     overflow: auto;
 }
+
+/* PARA PONER LOS CAMPOS EN ROJO */
+input.error {
+    border: 2px solid red;
+}
