@@ -17,9 +17,6 @@ function iniciarAplicacion() {
     // Hora en tiempo real
     iniciarReloj();
 
-    // Cargar actividades del combo
-    //cargarComboActividades();
-
     // Pintar los 10 socios iniciales
     pintarTablaSocios(socios);
 
@@ -27,7 +24,7 @@ function iniciarAplicacion() {
     aplicarBuscaFiltroOrden();
 
     // Estadísticas iniciales
-    //mostrarEstadisticas();
+    mostrarEstadisticas();
 
 }
 
@@ -107,8 +104,6 @@ function actualizarHora() {
     horaActual.innerHTML = horas + ":" +minutos + ":" +segundos;
 
 }
-
-
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /**
@@ -431,12 +426,6 @@ function validaDNI(dni){
  * APARTADO 3.4 DE LA PRACTICA --> Cargar un nuevo usuario a la tabla, verificando los datos de los inputs 
  */
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-function darAltaSocio(){
-
-}
-
 //creaamos las variables con las que llamamos 
 let nombreInput= document.getElementById("txtNombre");
 let apellidosInput = document.getElementById("txtApellidos");
@@ -522,6 +511,9 @@ function verificaAñade(evento){
 
     //pintamos de nuevo la tabla 
     pintarTablaSocios(socios);
+
+    //actualizamos tabla
+    mostrarEstadisticas();
     }
 
     
@@ -784,3 +776,229 @@ function validarCuota(){
  * APARTADO 3.5 DE LA PRACTICA 
  */
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * Calcula y muestra todas las estadísticas del club.
+ */
+/**
+ * Muestra todas las estadísticas en pantalla.
+ */
+function mostrarEstadisticas(){
+
+    document.getElementById("statTotal").innerHTML =
+      "<h4>Total socios</h4><p>" + calcularTotalSocios() + "</p>";
+
+    document.getElementById("statIngresos").innerHTML =
+      "<h4>Ingresos mensuales</h4><p>" +
+      calcularIngresosMensuales().toFixed(2) +
+      " €</p>";
+
+    document.getElementById("statCuotaMedia").innerHTML =
+      "<h4>Cuota media</h4><p>" + calcularCuotaMedia().toFixed(2) + " €</p>";
+
+    document.getElementById("statEdadMedia").innerHTML =
+      "<h4>Edad media</h4><p>" + calcularEdadMedia().toFixed(1) + " años</p>";
+
+    document.getElementById("statActividad").innerHTML =
+      "<h4>Actividad popular</h4><p>" + actividadMasPopular() + "</p>";
+
+    document.getElementById("statMenores").innerHTML =
+      "<h4>Menores de edad</h4><p>" + (hayMenores() ? "Sí" : "No") + "</p>";
+
+    document.getElementById("statEdadMin").innerHTML =
+      "<h4>Edad mínima</h4><p>" + edadMinima() + " años</p>";
+
+    document.getElementById("statEdadMax").innerHTML =
+      "<h4>Edad máxima</h4><p>" + edadMaxima() + " años</p>";
+
+    document.getElementById("statActividades").innerHTML =
+      "<h4>Con actividades</h4><p>" +
+      (todosConActividad() ? "Sí" : "No") +
+      "</p>";
+
+    mostrarVeteranos();
+
+    mostrarDominios();
+}
+
+//CALCULAR EDAD --> 
+
+function calcularEdad(fechaNacimiento){
+
+    let hoy = new Date();
+    let nacimiento = new Date(fechaNacimiento);
+
+    let edad = hoy.getFullYear() - nacimiento.getFullYear();
+
+    if( hoy.getMonth() < nacimiento.getMonth() ||(hoy.getMonth() === nacimiento.getMonth() &&hoy.getDate() < nacimiento.getDate() )){
+        edad--;
+    }
+
+    return edad;
+}
+
+//CALCULAR TOTAL DE SOICOS -> todos los guardados en el array
+function calcularTotalSocios(){
+
+    return socios.length;
+}
+
+//INGESOS MENSUALES --> total de ingresos mensuales 
+function calcularIngresosMensuales(){
+
+    let total = 0;
+
+    for(let socio of socios){
+        total += socio.cuota;
+    }
+
+    return total;
+}
+
+//CUOTA MEDIA --> entre la cantidad de socios y sus cuotas, tiramos de la funcion de ingresos mensuales 
+function calcularCuotaMedia(){
+    return calcularIngresosMensuales() / socios.length;
+}
+
+//EDAD MEDIA 
+function calcularEdadMedia(){
+
+    let suma = 0;
+
+    for(let socio of socios){
+        suma += calcularEdad(socio.fechaNacimiento);
+    }
+
+    return suma / socios.length;
+}
+
+//VERIFICA SI HAY ALGUN MENOR
+function hayMenores(){
+
+    for(let socio of socios){
+        if(calcularEdad(socio.fechaNacimiento) < 18){
+            return true;
+        }
+    }
+
+    return false;
+}
+
+//ACTIVIDAD MAS POPULAR --> Revisa que actividad es la mas repetida entre los socios 
+function actividadMasPopular(){
+
+    let actividades = [];
+
+    for(let socio of socios){
+        for(let actividad of socio.actividades){
+
+            if(actividades[actividad]){
+                actividades[actividad]++;
+            }else{
+                actividades[actividad] = 1;
+            }
+        }
+    }
+
+    let mayor = 0;
+    let actividadPopular = "";
+
+    for(let actividad in actividades){
+
+        if(actividades[actividad] > mayor){
+            mayor = actividades[actividad];
+            actividadPopular = actividad;
+        }
+    }
+
+    return actividadPopular + " (" + mayor + ")";
+}
+
+//FUNCION MOSTRAR VETARANOS --> Saca los 3 socios mas veteranos del cluv
+function mostrarVeteranos(){
+
+    let lista = document.getElementById("listaVeteranos");
+
+    lista.innerHTML = "";
+
+    let copia = [...socios];
+
+    copia.sort(function(a,b){
+        return new Date(a.fechaAlta) -new Date(b.fechaAlta);
+    });
+
+    for(let i = 0; i < 3; i++){
+        lista.innerHTML +="<li>" + copia[i].nombre + " " +copia[i].apellidos +"</li>";
+    }
+}
+
+//  FUNCION MUESTRA DOMINIOS --> Saca todos los dominios de coreos 
+function mostrarDominios(){
+
+    let lista = document.getElementById("listaDominios");
+
+    lista.innerHTML = "";
+
+    let dominios = [];
+
+    for(let socio of socios){
+        let dominio = socio.email.split("@")[1];
+        
+        if(!dominios.includes(dominio)){
+            dominios.push(dominio);
+        }
+    }
+
+    for(let dominio of dominios){
+        lista.innerHTML +="<li>" + dominio + "</li>";
+    }
+}
+
+//DEVUELVE LA EDAD MINIMA
+function edadMinima(){
+
+    let edadMin = calcularEdad(socios[0].fechaNacimiento);
+
+    for(let socio of socios){
+
+        let edadActual =
+        calcularEdad(socio.fechaNacimiento);
+
+        if(edadActual < edadMin){
+
+            edadMin = edadActual;
+        }
+    }
+
+    return edadMin;
+}
+
+//DEVUELVE LA EDAD MAXIMA 
+function edadMaxima(){
+
+    let edadMax = calcularEdad(socios[0].fechaNacimiento);
+
+    for(let socio of socios){
+
+        let edadActual =
+        calcularEdad(socio.fechaNacimiento);
+
+        if(edadActual > edadMax){
+
+            edadMax = edadActual;
+        }
+    }
+
+    return edadMax;
+}
+
+//TODOS CON ACTIVIDAD 
+function todosConActividad(){
+
+    for(let socio of socios){
+
+        if(socio.actividades.length === 0){
+            return false;
+        }
+    }
+    return true;
+}
