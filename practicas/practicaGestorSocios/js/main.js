@@ -1,3 +1,8 @@
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * FUNCIONES PRINCIPALES DONDE GUARDAMOS TODAS LAS FUNCIONES Y HACEMOS LA CARGA AL ABRIR LA PAGINA
+ */
+
 //El window onload es lo primero que se ejecuta al cargar la pagina, con una funcion de iniciar apliacion
 window.onload = function () {
     iniciarAplicacion();
@@ -26,13 +31,11 @@ function iniciarAplicacion() {
 
 }
 
-
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /**
- * APARTADO 3.1 DE LA PRACTICA 
+ * APARTADO 3.1 DE LA PRACTICA --> dos funciones de cabecera donde meterlos la fecha alcual y la hora actual que va actualizandose
  */
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /**
  * FUNCION FECHA ACTUAL --> 
  */
@@ -58,7 +61,6 @@ function mostrarFechaActual() {
 
     //mostramos por pantalla 
     fechaActual.innerHTML = textoFecha;
-
 }
 
 /**
@@ -107,14 +109,10 @@ function actualizarHora() {
 }
 
 
-function cargarActividades() {
-
-}
-
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /**
- * APARTADO 3.1 DE LA PRACTICA 
+ * APARTADO 3.1 DE LA PRACTICA --> se encarga de mostrar todos los datos de socios formateados, y meter tres filtros 
  */
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -358,11 +356,11 @@ function pantallaCompleta() {
 }
 
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /**
- * APARTADO 3.3 DE LA PRACTICA 
+ * APARTADO 3.3 DE LA PRACTICA --> Se encarga de buscar mediante dni, y muestra en una nueva ventana la ficha del socio correspondiente
  */
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 let DNI = document.getElementById("txtDniBusqueda");
 let botonBuscaPorDNi = document.getElementById("buscarDNi");
 
@@ -430,7 +428,7 @@ function validaDNI(dni){
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /**
- * APARTADO 3.4 DE LA PRACTICA 
+ * APARTADO 3.4 DE LA PRACTICA --> Cargar un nuevo usuario a la tabla, verificando los datos de los inputs 
  */
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -471,11 +469,76 @@ function verificaAñade(evento){
 
     const nombre = validarNombre();
     const apellidos = validarApellidos();
+    const dni = validardni();
+    const email = validarEmail();
+    const telefono = validarTelefono();
+    const fechaNacimiento = validarFechaNacimiento();
+    const actividades = validarActividades();
+    const cuota = validarCuota();
 
-    if (nombre === null || apellidos === null) {
-        return; // hay errores: ya se están mostrando en sus span
+
+    if (nombre === null ||apellidos === null ||dni === null ||email === null ||telefono === null ||fechaNacimiento === null ||actividades === null || cuota === null) {
+        return;
+    }else{
+    
+        //tenemos que poner la fecha alta en el dia de hoy
+    let hoy = new Date();
+    let fechaAlta =`${hoy.getFullYear()}-${String(hoy.getMonth()+1).padStart(2,"0")}-${String(hoy.getDate()).padStart(2,"0")}`;
+
+
+    //aqui vamos a añadir el nuevo socio si todo esta correcto
+    const nuevoSocio = {
+
+        id: generarNuevoId(),
+        nombre: nombre,
+        apellidos: apellidos,
+        dni: dni,
+        email: email,
+        telefono: telefono,
+        fechaNacimiento: fechaNacimiento,
+        fechaAlta: fechaAlta,
+        actividades: actividades,
+        cuota: cuota
+    };
+
+    //añadimos el socio al array 
+    socios.push(nuevoSocio);
+
+    //notificmos que socio añadido
+    alert("Socio añadido");
+
+    //limpiamos formulario
+    nombreInput.value = "";
+    apellidosInput.value = "";
+    dniInput.value = "";
+    emailInput.value = "";
+    telefonoInput.value = "";
+    fechaNaciInput.value = "";
+    cuotaInput.value = "";
+
+    checks.forEach(check => {
+        check.checked = false;
+    });
+
+    //pintamos de nuevo la tabla 
+    pintarTablaSocios(socios);
     }
 
+    
+}
+
+//FUNCION GENRAR DNI --> necesitamos esta funcion para que busque el ultimo de socios y me genere el siguiente
+function generarNuevoId(){
+
+    //busca el ultimo
+    let ultimoId = socios[socios.length - 1].id;
+    let numero = parseInt(ultimoId.split("-")[1]);
+    
+    //suma 1
+    numero++;
+
+    //el padStart permite añadir 0 delante 
+    return "SOC-" + numero.toString().padStart(4, "0");
 }
 
 //DOS FUNCIONES PARA PONER LOS CAMPOS EN ROJO Y MOSTRAR EL ERROR Y OTRA PARA BORARLO
@@ -498,10 +561,12 @@ const PATRON_TEXTO = /^[A-Za-zÁÉÍÓÚáéíóúÑñÜü]+( [A-Za-zÁÉÍÓÚ�
 function validarNombre() {
     const valor = nombreInput.value.trim();
 
+    //no este vacio
     if (valor === "") {
         mostrarError(nombreInput, errorNombre, "El nombre no puede estar vacío");
         return null;
     }
+    //coincida con el patron
     if (!PATRON_TEXTO.test(valor)) {
         mostrarError(nombreInput, errorNombre, "El nombre solo puede tener letras y un único espacio entre palabras");
         return null;
@@ -515,10 +580,12 @@ function validarNombre() {
 function validarApellidos() {
     const valor = apellidosInput.value.trim();
 
+    //no vacio
     if (valor === "") {
         mostrarError(apellidosInput, errorApellidos, "Los apellidos no pueden estar vacíos");
         return null;
     }
+    //coincida con el patron
     if (!PATRON_TEXTO.test(valor)) {
         mostrarError(apellidosInput, errorApellidos, "Los apellidos solo pueden tener letras y un único espacio entre palabras");
         return null;
@@ -528,25 +595,190 @@ function validarApellidos() {
     return valor;
 }
 
-//VALIDAR dni -->Solo letras (incluidas tildes, ñ y ü) y un único espacio entre palabras
+//VALIDAR dni -->8 dígitos y una letra, y la letra debe ser la correcta para ese número.
 function validardni() {
-    const valor = apellidosInput.value.trim();
 
+    const valor = dniInput.value.trim().toUpperCase();
+
+    //que no este vacio 
     if (valor === "") {
-        mostrarError(apellidosInput, errorApellidos, "Los apellidos no pueden estar vacíos");
+        mostrarError(dniInput, errorDni, "El DNI no puede estar vacío");
         return null;
     }
-    if (!PATRON_TEXTO.test(valor)) {
-        mostrarError(apellidosInput, errorApellidos, "Los apellidos solo pueden tener letras y un único espacio entre palabras");
+    //patron para verificar lo de 8 numeros y una letra
+    const patronDni = /^\d{8}[A-Z]{1}$/;
+
+    if (!patronDni.test(valor)) {
+        mostrarError(dniInput, errorDni, "El DNI debe tener 8 números y una letra");
         return null;
     }
 
-    quitarError(apellidosInput, errorApellidos);
+    //Con este patron y sacando el resto de la division del los 8 numeros / 23 podemos obtener una letra
+    const letras = "TRWAGMYFPDXBNJZSQVHLCKE";
+
+    let numero = parseInt(valor.substring(0, 8));
+    let letra = valor.charAt(8);
+
+    let letraCorrecta = letras[numero % 23];
+
+    if (letra !== letraCorrecta) {
+        mostrarError(dniInput, errorDni, "La letra del DNI no es correcta");
+        return null;
+    }
+
+    // dni repetido
+    let encontrado = socios.some(socio => socio.dni === valor);
+
+    if(encontrado){
+        mostrarError(dniInput, errorDni,"Ya existe un socio con ese DNI");
+        return null;
+    }
+
+    quitarError(dniInput, errorDni);
     return valor;
 }
 
+//VALIDAR EMAIL -> formato usuario@dominio.extension
+function validarEmail() {
 
+    const valor = emailInput.value.trim().toLowerCase();
 
+    const patronEmail = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
+
+    //que no este vacio
+    if (valor === "") {
+        mostrarError(emailInput, errorEmail, "El email no puede estar vacío");
+        return null;
+    }
+
+    //que cumpla con el patron
+    if (!patronEmail.test(valor)) {
+        mostrarError(emailInput, errorEmail, "Formato de email incorrecto");
+        return null;
+    }
+
+    quitarError(emailInput, errorEmail);
+    return valor;
+}
+
+//VALIDAR TELEFONO -> 9 dígitos empezando por 6,7,8 o 9. Se permiten espacios al escribirlo.
+function validarTelefono() {
+    const valor = telefonoInput.value.trim();
+
+    if (valor === "") {
+        mostrarError(telefonoInput, errorTelefono, "El teléfono no puede estar vacío");
+        return null;
+    }
+
+    // Quitamos los espacios para validar
+    const telefonoLimpio = valor.replaceAll(" ", "");
+
+    const patronTelefono = /^[6789]\d{8}$/;
+
+    //que cumpla con el patron
+    if (!patronTelefono.test(telefonoLimpio)) { mostrarError(telefonoInput, errorTelefono,"El teléfono debe tener 9 dígitos y empezar por 6, 7, 8 o 9");
+        return null;
+    }
+
+    quitarError(telefonoInput, errorTelefono);
+    return telefonoLimpio;
+}
+
+//VALIDAR FECHA NACIMIENTO -> formato dd/mm/aaaa,fecha existente, no futura y edad mínima de 14 años
+function validarFechaNacimiento() {
+    const valor = fechaNaciInput.value.trim();
+
+    //no puede estar vacio
+    if (valor === "") {
+        mostrarError(fechaNaciInput, errorFecha,"La fecha de nacimiento no puede estar vacía");return null;
+    }
+
+    //Para formatear la fecha
+    const patronFecha = /^\d{2}\/\d{2}\/\d{4}$/;
+
+    if (!patronFecha.test(valor)) {mostrarError(fechaNaciInput, errorFecha,"La fecha debe tener formato dd/mm/aaaa");
+        return null;
+    }
+
+    let partes = valor.split("/");
+
+    let dia = parseInt(partes[0]);
+    let mes = parseInt(partes[1]) - 1;
+    let año = parseInt(partes[2]);
+
+    let fecha = new Date(año, mes, dia);
+
+    // Comprobar que la fecha existe realmente
+    if (
+        fecha.getDate() !== dia ||
+        fecha.getMonth() !== mes ||
+        fecha.getFullYear() !== año
+    ) {
+        mostrarError(fechaNaciInput, errorFecha,"La fecha no existe");
+        return;
+    }
+
+    let hoy = new Date();
+
+    if (fecha > hoy) {
+        mostrarError(fechaNaciInput, errorFecha,"La fecha no puede ser futura");
+        return null;
+    }
+
+    let edad = hoy.getFullYear() - fecha.getFullYear();
+
+    if (hoy.getMonth() < fecha.getMonth() || (hoy.getMonth() === fecha.getMonth() && hoy.getDate() < fecha.getDate())){
+        edad--;
+    }
+
+    //tiene que tener minimo 14 años
+    if (edad < 14) {
+        mostrarError(fechaNaciInput, errorFecha,"Debe tener al menos 14 años");
+        return null;
+    }
+
+    quitarError(fechaNaciInput, errorFecha);
+    return valor;
+}
+
+//VALIDAR ACTIVIDADES -> debe haber al menos una marcada
+function validarActividades() {
+
+    let actividadesSeleccionadas = [];
+
+    //verificar que si esa pulsada se añada al array
+    checks.forEach(check => {
+        if (check.checked) {
+            actividadesSeleccionadas.push(check.value);
+        }
+    });
+
+    //si esta a 0 dar error 
+    if (actividadesSeleccionadas.length === 0) {
+        errorActividades.textContent ="Debes seleccionar al menos una actividad";
+        return null;
+    }
+
+    errorActividades.textContent = "";
+
+    return actividadesSeleccionadas;
+}
+
+//VALIDAR CUOTA --> Que no este vacia 
+function validarCuota(){
+    const valor = cuotaInput.value.trim();
+
+    //no puede estar vacio
+    if (valor === "") {
+        mostrarError(cuotaInput, errorCuota,"La cuota no puede estar vacía");
+        return null;
+    }
+
+    //quitamos error y devolvemos
+    quitarError(cuotaInput, errorCuota);
+    return parseFloat(valor);
+
+}
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /**
  * APARTADO 3.5 DE LA PRACTICA 
