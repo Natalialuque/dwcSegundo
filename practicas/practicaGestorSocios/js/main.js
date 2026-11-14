@@ -920,7 +920,12 @@ function mostrarVeteranos(){
 
     lista.innerHTML = "";
 
-    let copia = [...socios];
+    let copia = [];
+
+    for(let socio of socios){
+
+        copia.push(socio);
+    }
 
     copia.sort(function(a,b){
         return new Date(a.fechaAlta) -new Date(b.fechaAlta);
