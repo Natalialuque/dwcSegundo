@@ -145,6 +145,12 @@ function pintarTablaSocios(listaSocios) {
                  ${/* Cuota formateada a dos decimales y con € */''}
                 <td>${formatearCuota(socio.cuota)}</td>
 
+                <td>
+                <button onclick="eliminarSocio('${socio.id}')">
+                    Eliminar
+                </button>
+            </td>
+
             </tr>
         `;
 
@@ -1002,4 +1008,43 @@ function todosConActividad(){
         }
     }
     return true;
+}
+
+
+
+/**
+ * APARTADOS REALIZADOS EN CASA DE SUPUESTAS COSAS QUE PODRIAN ENTRAR 
+ */
+
+//logeo de un nuevo usuario 
+let botonUsu = document.getElementById("b_login");
+let usu = document.getElementById("inicioLogin");
+
+botonUsu.addEventListener("click",()=>{
+//abrimos el login.html
+    window.open(
+        "./html/login.html",
+        "login",
+        "width=400,height=300"
+    );
+});
+
+
+//
+function eliminarSocio(id){
+
+    let borrar = confirm(
+        `¿Seguro que deseas eliminar al socio ${id}?`
+    );
+
+    if(!borrar){
+        return;
+    }
+
+    socios = socios.filter(
+        socio => socio.id !== id
+    );
+
+    pintarTabla();
+    actualizarEstadisticas();
 }
