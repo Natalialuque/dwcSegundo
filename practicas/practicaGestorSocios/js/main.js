@@ -777,9 +777,6 @@ function validarCuota(){
  */
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /**
- * Calcula y muestra todas las estadísticas del club.
- */
-/**
  * Muestra todas las estadísticas en pantalla.
  */
 function mostrarEstadisticas(){
@@ -820,8 +817,7 @@ function mostrarEstadisticas(){
     mostrarDominios();
 }
 
-//CALCULAR EDAD --> 
-
+//CALCULAR EDAD 
 function calcularEdad(fechaNacimiento){
 
     let hoy = new Date();
