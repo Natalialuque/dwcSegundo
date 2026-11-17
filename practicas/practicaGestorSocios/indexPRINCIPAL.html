@@ -23,11 +23,6 @@
         <p id="horaActual"></p>
     </div>
 
-    <div>
-        <button type="submit" id="b_login">login</button>
-        <p id="inicioLogin"></p>
-    </div>
-
 </header>
 
 <main class="contenedorPrincipal">
@@ -67,6 +62,8 @@
                 <option>Apellidos</option>
                 <option>Más jóvenes</option>
                 <option>Más antiguos</option>
+                <option>Cuota mas alta</option>
+
             </select>
 
         </div>
@@ -82,7 +79,7 @@
                 <th>Actividades</th>
                 <th>Cuota</th>
                 <!-- COLUMNA NUEVA -->
-                <th>Acciones</th>
+                <th>Antiguedad</th>
             </tr>
             </thead>
 
@@ -172,7 +169,7 @@
 
 
                 <input
-                    type="number"
+                    type="text"
                     id="txtCuota"
                     placeholder="Cuota mensual"
                 >

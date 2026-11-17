@@ -142,26 +142,34 @@ function pintarTablaSocios(listaSocios) {
                 <td>${CalculaFechaNacimiento(socio.fechaNacimiento)}</td>
                 ${/* Actividades */''}
                 <td>${socio.actividades}</td>
-                 ${/* Cuota formateada a dos decimales y con € */''}
+                ${/* Cuota formateada a dos decimales y con € */''}
                 <td>${formatearCuota(socio.cuota)}</td>
-
-                 ${/*ASUNTOS DE CASAA*/''}
-                <td>
-                <button onclick="eliminarSocio('${socio.id}')">
-                    Eliminar
-                </button>
-            </td>
-             <td>
-                <button onclick="modificarSocio('${socio.id}')">
-                    Modificar
-                </button>
-            </td>
-
-
+                ${/*APARTADO NUEVO --> Antiguedad que lleva en numero de años y meses*/''}
+                <td>${antiguedadSocio(socio)}</td>
+            
             </tr>
         `;
 
     }
+}
+
+//APARTADO NUEVO --> sacar la antiguedad de socio
+function antiguedadSocio(socio){
+    let hoy = new Date();
+    let fechaAlta = new Date(socio.fechaAlta);
+
+    //sacamos años
+    let año = hoy.getFullYear()- fechaAlta.getFullYear();
+
+    //sacamos meses 
+    let meses = hoy.getMonth()-fechaAlta.getMonth();
+
+    //mostrar con formato
+    let mostrar = año + " años y "+ meses+" meses";
+
+    return mostrar;
+    
+
 }
 
 //Funcion para obtener las iniciales del nombre y del primer apellido
@@ -338,6 +346,15 @@ function aplicarOrden(listaSocios) {
             listaSocios.sort((a, b) =>
                 new Date(a.fechaAlta) -
                 new Date(b.fechaAlta)
+            );
+
+            break;
+
+        /**APARTADO NUEVO--> SACAR LA CUOTA MAS ALTA DE LOS SOCIOS */
+        case "Cuota mas alta":
+            //busca la cuota mas alta y la pone primero
+            listaSocios.sort((a, b) =>
+              (b.cuota)-(a.cuota)
             );
 
             break;
@@ -773,11 +790,21 @@ function validarActividades() {
 function validarCuota(){
     const valor = cuotaInput.value.trim();
 
+    //expresion regular que tenga entre 1 y 3 numeros, una coma o punto y 2 decimales
+    let regex = /^[0-9]{1,3}[,.]{1}[0-9]{2}/
+
+
     //no puede estar vacio
     if (valor === "") {
         mostrarError(cuotaInput, errorCuota,"La cuota no puede estar vacía");
         return null;
     }
+
+    if(!regex.test(valor)){
+        mostrarError(cuotaInput,errorCuota,"no puede tener > 3 caracteres, un punto o coma y dos decimales");
+        return null;
+    }
+
 
     //quitamos error y devolvemos
     quitarError(cuotaInput, errorCuota);
@@ -1018,90 +1045,3 @@ function todosConActividad(){
 }
 
 
-
-/**
- * APARTADOS REALIZADOS EN CASA DE SUPUESTAS COSAS QUE PODRIAN ENTRAR 
- */
-
-//logeo de un nuevo usuario 
-let botonUsu = document.getElementById("b_login");
-let usu = document.getElementById("inicioLogin");
-
-botonUsu.addEventListener("click",()=>{
-//abrimos el login.html
-    window.open(
-        "./html/login.html",
-        "login",
-        "width=400,height=300"
-    );
-});
-
-
-//
-
-
-function eliminarSocio(id){
-
-// console.log("ID recibido:", id);
-
-//     socios.forEach(socio => {
-
-//         console.log(
-//             socio.id,
-//             socio.id !== id
-//         );
-
-//     });
-    let borrar = confirm(
-        `¿Seguro que deseas eliminar al socio ${id}?`
-    );
-
-    if(!borrar){
-        return;
-    }
-
-    socios = socios.filter(
-        socio => socio.id !== id
-    );
-
-    pintarTablaSocios(socios);
-    mostrarEstadisticas();
-}
-
-
-//////
-function modificarSocio(id){
-
-        alert("Estoy entrando");
-
-
-    let socio = socios.find(
-        socio => socio.id === id
-    );
-
-    if(!socio){
-        alert("Socio no encontrado");
-        return;
-    }
-
-    let nombre = prompt("Nombre:", socio.nombre);
-
-    let email = prompt("Email:", socio.email);
-
-    let cuota = prompt("Cuota:", socio.cuota);
-
-    if(nombre !== null && nombre.trim() !== ""){
-        socio.nombre = nombre;
-    }
-
-    if(email !== null && email.trim() !== ""){
-        socio.email = email;
-    }
-
-    if(cuota !== null && cuota.trim() !== ""){
-        socio.cuota = parseFloat(cuota);
-    }
-
-    pintarTablaSocios(socios);
-    mostrarEstadisticas();
-}

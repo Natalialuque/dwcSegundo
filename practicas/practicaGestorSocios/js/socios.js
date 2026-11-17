@@ -122,6 +122,7 @@ let socios = [
         fechaAlta: "2015-07-12",
         actividades: ["yoga", "musculación", "spinning"],
         cuota: 55
+        
     }
 
 ];

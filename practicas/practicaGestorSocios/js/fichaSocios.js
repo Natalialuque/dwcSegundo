@@ -43,12 +43,49 @@ function mostrarDatos(socio) {
     document.getElementById("cuota").textContent =
         "Cuota mensual: " +
         socio.cuota.toFixed(2) +
-        " €";
+        " € 9";
+    document.getElementById("curiosidad").textContent =
+        "Curiosidad: " +
+        cuentaVocales(socio.nombre);
 }
 
 /**
  * FUNCIONES ADICIONALES PARA ESCRIBIR LOS DATOS DE FORMA CORRECTA 
  */
+
+//FUNCION NUEVA --> curiosidad que saque el numero de vocales que tiene el nombre del socio
+function cuentaVocales (socio){
+  
+    let nombre = socio.nombre;
+    let apellido = socio.apellido;
+
+    let conjunto = [];
+    conjunto.push(nombre);
+    conjunto.push(apellido);
+
+    let cont=0;
+
+    for(let i = 0; i<=conjunto.length;i++){
+        if(conjunto[i] === "a"){
+            cont++
+        }
+        if(conjunto[i]=== "e"){
+            cont++;
+        }
+        if(conjunto[i]=== "i"){
+            cont++;
+        }
+        if(conjunto[i] === "o"){
+            cont++;
+        }
+        if(conjunto[i] === "u"){
+            cont++;
+        }
+    }
+
+    return cont;
+
+}
 
 //email --> Email completo y su dominio: (dominio: correo.es)
 function obtenerDominio(email) {
