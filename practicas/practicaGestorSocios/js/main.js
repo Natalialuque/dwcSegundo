@@ -145,11 +145,18 @@ function pintarTablaSocios(listaSocios) {
                  ${/* Cuota formateada a dos decimales y con € */''}
                 <td>${formatearCuota(socio.cuota)}</td>
 
+                 ${/*ASUNTOS DE CASAA*/''}
                 <td>
                 <button onclick="eliminarSocio('${socio.id}')">
                     Eliminar
                 </button>
             </td>
+             <td>
+                <button onclick="modificarSocio('${socio.id}')">
+                    Modificar
+                </button>
+            </td>
+
 
             </tr>
         `;
@@ -1031,8 +1038,20 @@ botonUsu.addEventListener("click",()=>{
 
 
 //
+
+
 function eliminarSocio(id){
 
+// console.log("ID recibido:", id);
+
+//     socios.forEach(socio => {
+
+//         console.log(
+//             socio.id,
+//             socio.id !== id
+//         );
+
+//     });
     let borrar = confirm(
         `¿Seguro que deseas eliminar al socio ${id}?`
     );
@@ -1045,6 +1064,44 @@ function eliminarSocio(id){
         socio => socio.id !== id
     );
 
-    pintarTabla();
-    actualizarEstadisticas();
+    pintarTablaSocios(socios);
+    mostrarEstadisticas();
+}
+
+
+//////
+function modificarSocio(id){
+
+        alert("Estoy entrando");
+
+
+    let socio = socios.find(
+        socio => socio.id === id
+    );
+
+    if(!socio){
+        alert("Socio no encontrado");
+        return;
+    }
+
+    let nombre = prompt("Nombre:", socio.nombre);
+
+    let email = prompt("Email:", socio.email);
+
+    let cuota = prompt("Cuota:", socio.cuota);
+
+    if(nombre !== null && nombre.trim() !== ""){
+        socio.nombre = nombre;
+    }
+
+    if(email !== null && email.trim() !== ""){
+        socio.email = email;
+    }
+
+    if(cuota !== null && cuota.trim() !== ""){
+        socio.cuota = parseFloat(cuota);
+    }
+
+    pintarTablaSocios(socios);
+    mostrarEstadisticas();
 }
