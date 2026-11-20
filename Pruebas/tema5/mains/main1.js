@@ -64,6 +64,10 @@ botonEnviar = document.getElementById("botonEnviar");
 
 botonEnviar.addEventListener("click",noEnviarDatos);
 
-function noEnviarDatos(){
+function noEnviarDatos(e){
+     
+    e.preventDefault();   // evita que se recargue la página
 
+
+    
 }
