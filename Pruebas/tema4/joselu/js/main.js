@@ -181,3 +181,24 @@ document.getElementById("bClonaLista").addEventListener("click", ()=> {
 
     section.appendChild(clon);
 })
+
+
+/**
+ * APARTADO TEMA 5
+ */
+
+let paisesLi = document.getElementById("paises").getElementsByTagName("li");
+
+for (let pais of paisesLi)
+    pais.addEventListener("click", pulsaPais);
+
+
+function pulsaPais(e) {
+    //comprueba si esta vacio
+     if(e.target.parentNode.getElementsByTagName("li").length==0){
+         e.target.parent.remove();
+    }
+    //elimina
+    e.target.remove();
+
+}
