@@ -4,19 +4,34 @@ let apellido = document.getElementById("apellido");
 let boton = document.getElementById("botonPadre");
 
 //esto se encarga de abrir cuando se pulsa el boton, aqui podriamos meter validaciones y mierdas
-boton.addEventListener("click",enviar);
+//boton.addEventListener("click",enviar);
 
-function enviar(e){
-    
-    e.preventDefault();   // evita que se recargue la página
+//CON ESTO PODEMOS CARGAR LA NUEVA VENTANA DIRECTAMENTE 
+window.onload = function(){
 
     window.open(
         "hija.html",
         "hija",
-        "width=700,height=700"
+        "width=300,height=200"
     );
+  
+};
 
-}
+// function enviar(e){
+    
+//     e.preventDefault();   // evita que se recargue la página
+
+//     window.open(
+//         "hija.html",
+//         "hija",
+//         "width=700,height=700"
+//     );
+    
+//     setTimeout(() => {
+//         hija.close();
+//     }, 5000);
+
+// }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //esto crea una funcion dentro del objeto padre ded window que permite comunicarse entre ventanas
 window.sacarNombreApellido = function(){
